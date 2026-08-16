@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="a" data-mode="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>城市手冊 CITY · M.D—M.D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- SWAP 4/4 ─ 只有「當地文字」那支字型要換（Noto Sans Thai → Noto Sans JP / KR / Devanagari…）。
+     Bai Jamjuree（拉丁字與數字）與 Noto Sans TC（中文）是整套設計的識別，不要換。
+     目的地若使用拉丁字母（歐美），直接把第三支字型從網址裡拿掉。 -->
+<link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@200;300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ══════════ SWAP 1/4 ─ 單墨色 + 單紙色，三組配色 × 明暗 ══════════
+   每個城市只換這六行。挑法與檢查標準見 references/design-system.md。
+   絕對不要引入第三個顏色：所有層次都靠線條粗細與網點密度做出來。 */
+html[data-theme="a"][data-mode="light"]   {--ink:#B0175B;--ink-rgb:176,23,91;  --paper:#F2ECE3;}
+html[data-theme="a"][data-mode="dark"]    {--ink:#FF5C9B;--ink-rgb:255,92,155; --paper:#150A0F;}
+html[data-theme="b"][data-mode="light"]   {--ink:#8A560D;--ink-rgb:138,86,13;  --paper:#F6F0DF;}
+html[data-theme="b"][data-mode="dark"]    {--ink:#E9AE3E;--ink-rgb:233,174,62; --paper:#12100A;}
+html[data-theme="c"][data-mode="light"]   {--ink:#1C3B70;--ink-rgb:28,59,112;  --paper:#E8EDF1;}
+html[data-theme="c"][data-mode="dark"]    {--ink:#7DB2EA;--ink-rgb:125,178,234;--paper:#070C16;}
+
+:root{
+  --ink-85:rgba(var(--ink-rgb),.85);
+  --ink-60:rgba(var(--ink-rgb),.60);
+  --ink-38:rgba(var(--ink-rgb),.38);
+  --ink-18:rgba(var(--ink-rgb),.18);
+  --ink-08:rgba(var(--ink-rgb),.08);
+  --hair:.75px;
+  --gut:clamp(20px,5vw,64px);
+  --maxw:1180px;
+  --navh:54px;
+  --gap-major:clamp(40px,6vw,64px);
+  --gap-mid:clamp(28px,4vw,44px);
+  --gap-sub:clamp(22px,3vw,34px);
+}
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+html,body{height:100%;}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Bai Jamjuree","Noto Sans TC",system-ui,sans-serif;
+  font-weight:400;line-height:1.7;letter-spacing:.01em;overflow:hidden;
+  transition:background .35s ease,color .35s ease;
+}
+.shell{
+  height:100%;overflow-y:auto;overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;scroll-behavior:smooth;
+  padding-bottom:calc(var(--navh) + env(safe-area-inset-bottom,0px));
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:99;
+  background-image:radial-gradient(var(--ink-08) .5px,transparent .5px);
+  background-size:3px 3px;opacity:.6;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--gut);padding-right:var(--gut);}
+a{color:inherit;text-decoration:none;}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.34em;text-transform:uppercase;color:var(--ink-60);}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum";}
+.loc{font-family:"Noto Sans Thai","Bai Jamjuree",sans-serif;}
+
+/* ══════════ nav（頂部只放品牌與主題切換，區塊導覽一律走底部）══════════ */
+.nav{position:sticky;top:0;z-index:60;background:var(--paper);border-bottom:var(--hair) solid var(--ink);}
+.nav-in{max-width:var(--maxw);margin:0 auto;padding:0 var(--gut);
+  height:var(--navh);display:flex;align-items:center;gap:clamp(10px,2vw,26px);}
+.brand{font-size:11px;font-weight:700;letter-spacing:.22em;white-space:nowrap;}
+.switch{display:flex;align-items:center;gap:8px;flex:none;margin-left:auto;}
+.sw{width:17px;height:17px;border-radius:50%;border:1.2px solid var(--ink-38);
+  padding:0;cursor:pointer;background:transparent;position:relative;transition:transform .2s cubic-bezier(.34,1.4,.64,1);}
+.sw i{position:absolute;inset:2.5px;border-radius:50%;display:block;}
+.sw:hover{transform:scale(1.15);}
+.sw:active{transform:scale(.88);}
+.sw[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 2.5px var(--paper),0 0 0 3.6px var(--ink);}
+.mode{border:1.2px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;
+  font-family:"Bai Jamjuree",sans-serif;font-size:10px;font-weight:700;letter-spacing:.16em;
+  padding:4px 9px 5px;border-radius:999px;margin-left:4px;transition:background .2s,color .2s,transform .2s cubic-bezier(.34,1.4,.64,1);}
+.mode:hover{background:var(--ink);color:var(--paper);}
+.mode:active{transform:scale(.93);}
+
+/* ══════════ bottom nav：唯一的區塊導覽，長頁面不用捲回頂部 ══════════ */
+.navbottom{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--paper);
+  border-top:var(--hair) solid var(--ink);padding-bottom:env(safe-area-inset-bottom,0px);}
+.navbottom-in{max-width:var(--maxw);margin:0 auto;padding:0 clamp(6px,2vw,var(--gut));
+  height:var(--navh);display:flex;align-items:stretch;}
+.navbottom button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  font-family:"Noto Sans TC",sans-serif;font-size:10.5px;font-weight:500;white-space:nowrap;
+  padding:6px 2px;border:0;background:none;cursor:pointer;color:var(--ink-60);
+  transition:color .2s,transform .2s cubic-bezier(.34,1.4,.64,1);}
+.navbottom button:hover{color:var(--ink);}
+.navbottom button:active{transform:scale(.9);}
+.navbottom button.on{color:var(--ink);font-weight:700;}
+.navbottom button.on::before{content:"";display:block;width:4px;height:4px;border-radius:50%;background:var(--ink);margin-bottom:1px;}
+.navbottom button::before{content:"";display:block;width:4px;height:4px;border-radius:50%;background:transparent;margin-bottom:1px;}
+
+/* ══════════ day-jump bar：行程區內的按日期跳轉 ══════════ */
+.daybar-wrap{position:sticky;top:var(--navh);z-index:45;background:var(--paper);
+  margin:0 calc(var(--gut) * -1) clamp(20px,3vw,30px);padding:10px var(--gut) 12px;
+  border-bottom:var(--hair) solid var(--ink-38);}
+.daybar{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;}
+.daybar::-webkit-scrollbar{display:none;}
+.daybar button{flex:none;display:flex;flex-direction:column;align-items:center;gap:2px;
+  border:var(--hair) solid var(--ink-38);background:transparent;color:var(--ink-60);
+  padding:6px 15px 7px;cursor:pointer;font-family:"Bai Jamjuree",sans-serif;
+  transition:border-color .2s,color .2s,background .2s,transform .2s cubic-bezier(.34,1.4,.64,1);}
+.daybar button b{font-size:17px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;}
+.daybar button i{font-style:normal;font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;}
+.daybar button:hover{color:var(--ink);border-color:var(--ink-60);transform:translateY(-1px);}
+.daybar button:active{transform:translateY(0) scale(.95);}
+.daybar button.on{border-color:var(--ink);color:var(--ink);background:var(--ink-08);}
+
+/* ══════════ masthead ══════════ */
+header{padding-top:clamp(24px,4vw,44px);}
+.hero-type{padding:clamp(26px,5.5vw,56px) 0 clamp(8px,2vw,20px);}
+.city{font-size:clamp(58px,17vw,228px);font-weight:700;line-height:.8;letter-spacing:-.035em;margin:0;}
+.city-sub{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-top:clamp(10px,2vw,18px);}
+.city-tc{font-family:"Noto Sans TC",sans-serif;font-weight:900;font-size:clamp(26px,5.4vw,58px);letter-spacing:.22em;line-height:1;margin:0;}
+.stamp{border:var(--hair) solid var(--ink);border-radius:999px;padding:7px 18px 8px;
+  font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap;}
+
+/* ══════════ line art ══════════ */
+.art{margin:clamp(4px,1.5vw,14px) 0 0;}
+.art svg{display:block;width:100%;height:auto;color:var(--ink);}
+.art .st{fill:none;stroke:var(--ink);stroke-width:1;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;}
+.art .thin{stroke-width:.6;}
+.art .bold{stroke-width:1.6;}
+.art .cut{fill:var(--paper);stroke:var(--ink);stroke-width:.7;}
+.art g{opacity:0;animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards;}
+.art g:nth-child(1){animation-delay:.05s}.art g:nth-child(2){animation-delay:.14s}
+.art g:nth-child(3){animation-delay:.23s}.art g:nth-child(4){animation-delay:.32s}
+.art g:nth-child(5){animation-delay:.41s}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+.meta-strip{border-top:var(--hair) solid var(--ink);border-bottom:var(--hair) solid var(--ink);
+  display:grid;grid-template-columns:repeat(4,1fr);}
+.meta-strip div{padding:14px 16px 15px;border-left:var(--hair) solid var(--ink-38);}
+.meta-strip div:first-child{border-left:0;}
+.meta-strip b{display:block;font-size:clamp(16px,2.3vw,25px);font-weight:600;line-height:1.15;letter-spacing:-.01em;margin-top:3px;}
+.meta-strip small{font-size:10px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-60);}
+.meta-strip small.lo{letter-spacing:.1em;text-transform:none;}
+
+/* ══════════ sections ══════════ */
+section{padding-top:var(--gap-major);scroll-margin-top:calc(var(--navh) + 12px);}
+.sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:var(--gap-major);}
+.sec-head h2{font-family:"Noto Sans TC",sans-serif;font-weight:900;
+  font-size:clamp(21px,3.4vw,34px);letter-spacing:.06em;margin:0;line-height:1.2;}
+.sec-head .rule{flex:1;height:1px;background:var(--ink-38);transform:translateY(-6px);}
+
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2.4vw,26px);}
+.duo>*:nth-child(even){margin-top:clamp(18px,3vw,30px);}
+.card{border:var(--hair) solid var(--ink);padding:clamp(18px,2.6vw,28px);position:relative;}
+.card h3{font-family:"Noto Sans TC",sans-serif;font-size:clamp(16px,2vw,20px);font-weight:700;margin:6px 0 14px;letter-spacing:.04em;}
+.kv{display:flex;justify-content:space-between;gap:14px;padding:7px 0;border-top:var(--hair) dashed var(--ink-38);font-size:14px;}
+.kv:first-of-type{border-top:0;}
+.kv dt{color:var(--ink-60);white-space:nowrap;font-size:12.5px;letter-spacing:.06em;}
+.kv dd{margin:0;text-align:right;font-weight:500;}
+dl{margin:0;}
+.tag{position:absolute;top:-8px;right:-8px;background:var(--ink);color:var(--paper);
+  font-size:10px;font-weight:600;letter-spacing:.2em;padding:5px 11px 6px;transform:rotate(3deg);}
+.money{border:var(--hair) solid var(--ink);border-top-width:3px;padding:clamp(18px,2.6vw,30px);}
+.money ul{list-style:none;margin:0;padding:0;columns:2;column-gap:clamp(24px,4vw,58px);}
+.money li{break-inside:avoid;display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  padding:12px 0;border-bottom:var(--hair) dashed var(--ink-38);
+  font-family:"Noto Sans TC",sans-serif;font-size:14.5px;font-weight:500;}
+.money li b{font-family:"Bai Jamjuree",sans-serif;font-size:9.5px;font-weight:700;letter-spacing:.14em;
+  border:var(--hair) solid var(--ink);padding:2px 6px 3px;line-height:1.3;white-space:nowrap;flex:none;}
+
+/* ══════════ cost tables ══════════ */
+.cost-tbl{width:100%;border-collapse:collapse;margin-top:clamp(14px,2vw,20px);
+  font-family:"Noto Sans TC",sans-serif;font-size:13.5px;}
+.cost-tbl th{font-family:"Bai Jamjuree",sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink-60);text-align:left;padding:0 0 9px;
+  border-bottom:1.4px solid var(--ink);}
+.cost-tbl th.r,.cost-tbl td.r{text-align:right;}
+.cost-tbl td{padding:11px 0;border-bottom:var(--hair) solid var(--ink-18);vertical-align:top;}
+.cost-tbl td.r{font-family:"Bai Jamjuree",sans-serif;font-weight:600;white-space:nowrap;
+  font-variant-numeric:tabular-nums;padding-left:12px;}
+.cost-tbl td small{display:block;font-size:11.5px;color:var(--ink-60);margin-top:2px;}
+.cost-tbl tr.sum td{border-bottom:0;border-top:1.4px solid var(--ink);padding-top:14px;
+  font-weight:700;font-size:15px;}
+.cost-note{font-size:12.5px;color:var(--ink-60);margin:14px 0 0;font-family:"Noto Sans TC",sans-serif;line-height:1.65;}
+.mini-h{font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-60);
+  margin:0 0 4px;padding-bottom:9px;border-bottom:1.4px solid var(--ink);}
+.mini-h + .mini-h,.cost-note + .mini-h,table + .mini-h,p + .mini-h{margin-top:clamp(28px,4vw,40px);}
+
+/* ══════════ tabs：同頁可有多組，用 data-tabgroup 分開 ══════════ */
+.tabbar-wrap{margin:0 0 clamp(22px,3.4vw,32px);}
+.tabbar{display:flex;flex-wrap:wrap;gap:8px;}
+.tabbar button{font-family:"Bai Jamjuree",sans-serif;font-size:12.5px;font-weight:700;letter-spacing:.08em;
+  padding:7px 16px 8px;border:var(--hair) solid var(--ink);background:none;color:var(--ink-60);
+  cursor:pointer;white-space:nowrap;transition:background .2s,color .2s,border-color .2s;}
+.tabbar button:hover:not(.on){color:var(--ink);border-color:var(--ink-60);}
+.tabbar button.on{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.tab-panel{animation:tabPanelIn .4s cubic-bezier(.22,.9,.32,1.1);}
+@keyframes tabPanelIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ══════════ route ══════════ */
+.legend{display:flex;gap:clamp(14px,3vw,34px);flex-wrap:wrap;align-items:center;font-size:12px;color:var(--ink-85);margin-bottom:clamp(20px,3vw,30px);}
+.legend i{display:inline-flex;align-items:center;gap:7px;font-style:normal;}
+.chip{width:11px;height:11px;border-radius:50%;border:1.2px solid var(--ink);flex:none;}
+.chip.solid{background:var(--ink);}
+.chip.half{background:linear-gradient(90deg,var(--ink) 50%,transparent 50%);}
+.route{position:relative;}
+.route::before{content:"";position:absolute;left:0;top:6px;bottom:26px;width:1.2px;background:var(--ink);
+  transform-origin:top;}
+html.js .route::before{transform:scaleY(0);transition:transform 1.1s cubic-bezier(.16,1,.3,1);}
+html.js #route.rv.in .route::before{transform:scaleY(1);}
+.day{position:relative;padding-left:clamp(26px,4vw,44px);padding-bottom:var(--gap-mid);}
+.day-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:var(--gap-mid);}
+.day-num{font-size:clamp(38px,6.6vw,74px);font-weight:700;line-height:.85;letter-spacing:-.04em;
+  display:inline-block;transform-origin:left bottom;}
+.day:nth-child(odd) .day-num{transform:rotate(-1.4deg);}
+.day:nth-child(even) .day-num{transform:rotate(1.1deg);}
+.day-dow{font-size:11px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-60);}
+.day-title{font-family:"Noto Sans TC",sans-serif;font-weight:700;font-size:clamp(14px,1.9vw,17px);letter-spacing:.08em;}
+.day-head::before{content:"";position:absolute;left:-5.4px;top:9px;width:12px;height:12px;
+  background:var(--paper);border:1.4px solid var(--ink);border-radius:50%;
+  box-shadow:0 0 0 2.4px var(--paper),0 0 0 3.8px var(--ink);}
+.stops{list-style:none;margin:0;padding:0;}
+.stop{display:grid;grid-template-columns:clamp(74px,10vw,104px) 1fr;gap:clamp(10px,2vw,22px);
+  padding:11px 0;border-top:var(--hair) solid var(--ink-18);position:relative;}
+.stop::before{content:"";position:absolute;left:calc(clamp(26px,4vw,44px) * -1 - 4.5px);top:19px;
+  width:9px;height:9px;border-radius:50%;border:1.1px solid var(--ink);background:var(--paper);}
+.stop.together::before{background:var(--ink);}
+.stop.pending::before{background:linear-gradient(90deg,var(--ink) 50%,var(--paper) 50%);}
+.stop time{font-size:13px;font-weight:600;padding-top:1px;white-space:nowrap;}
+.stop .body{font-family:"Noto Sans TC",sans-serif;font-size:14.5px;font-weight:500;line-height:1.6;}
+.stop .note{display:block;font-size:12.5px;font-weight:400;color:var(--ink-60);margin-top:3px;line-height:1.55;}
+.stop .who{font-family:"Bai Jamjuree",sans-serif;font-size:9.5px;font-weight:700;letter-spacing:.14em;
+  border:var(--hair) solid var(--ink);padding:1px 5px 2px;margin-left:8px;vertical-align:2px;white-space:nowrap;text-transform:uppercase;}
+.mapbtn{display:inline-block;font-family:"Bai Jamjuree",sans-serif;font-size:9.5px;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;border:var(--hair) solid var(--ink);
+  padding:1px 7px 2px;margin-left:8px;vertical-align:2px;white-space:nowrap;
+  text-decoration:none;transition:background .2s,color .2s,transform .2s cubic-bezier(.34,1.4,.64,1);}
+.mapbtn:hover{background:var(--ink);color:var(--paper);transform:translateY(-1px);}
+.mapbtn:active{transform:translateY(0) scale(.94);}
+.fork div .mapbtn{margin-left:auto;}
+.alert{margin-top:10px;border:1.4px solid var(--ink);padding:11px 14px;font-family:"Noto Sans TC",sans-serif;font-size:13.5px;font-weight:500;}
+.alert b{font-weight:900;letter-spacing:.04em;}
+.fork{border:var(--hair) dashed var(--ink);padding:12px 14px;margin-top:8px;}
+.fork p{margin:0 0 8px;font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-60);}
+.fork div{font-family:"Noto Sans TC",sans-serif;font-size:14px;font-weight:500;padding:5px 0;display:flex;gap:10px;align-items:baseline;}
+.fork div span{font-family:"Bai Jamjuree",sans-serif;font-weight:700;font-size:12px;letter-spacing:.1em;flex:none;}
+
+/* ══════════ places & phrases ══════════ */
+.hint{border-left:2.4px solid var(--ink);padding:2px 0 2px 14px;margin-bottom:clamp(22px,3.4vw,34px);
+  font-family:"Noto Sans TC",sans-serif;font-size:14px;font-weight:500;max-width:62ch;}
+.hint span{display:block;color:var(--ink-60);font-weight:400;font-size:13px;margin-top:4px;}
+.places{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));
+  border-top:var(--hair) solid var(--ink);border-left:var(--hair) solid var(--ink);}
+.place{border-right:var(--hair) solid var(--ink);border-bottom:var(--hair) solid var(--ink);padding:16px 18px 18px;
+  transition:transform .3s cubic-bezier(.34,1.2,.64,1);}
+.place:hover{transform:translateY(-2px);}
+.place .zh{font-family:"Noto Sans TC",sans-serif;font-weight:700;font-size:15px;letter-spacing:.04em;}
+.place .en{font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-60);margin-top:2px;}
+.place .native{font-size:clamp(21px,2.6vw,27px);font-weight:700;line-height:1.5;margin:9px 0 2px;letter-spacing:.01em;}
+.place .rom{font-size:12px;font-weight:500;color:var(--ink-60);letter-spacing:.05em;}
+.place .memo{font-size:11.5px;color:var(--ink-60);margin-top:7px;font-family:"Noto Sans TC",sans-serif;line-height:1.55;}
+.place .map{display:inline-block;margin-top:10px;font-size:10px;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;border:var(--hair) solid var(--ink);padding:4px 10px 5px;
+  text-decoration:none;transition:background .2s,color .2s,transform .2s cubic-bezier(.34,1.4,.64,1);}
+.place .map:hover{background:var(--ink);color:var(--paper);transform:translateY(-1px);}
+.place .map:active{transform:translateY(0) scale(.95);}
+
+.phrase-group{margin-top:var(--gap-sub);}
+.phrase-group h3{font-family:"Noto Sans TC",sans-serif;font-size:14px;font-weight:900;letter-spacing:.2em;
+  margin:0 0 var(--gap-sub);padding-bottom:9px;border-bottom:1.4px solid var(--ink);
+  display:flex;justify-content:space-between;align-items:baseline;}
+.phrase-group h3 em{font-family:"Bai Jamjuree",sans-serif;font-style:normal;font-size:10px;font-weight:600;
+  letter-spacing:.24em;color:var(--ink-60);text-transform:uppercase;}
+.ph{display:grid;grid-template-columns:minmax(120px,.9fr) 1.2fr 1fr;gap:clamp(10px,2vw,22px);
+  padding:12px 0;border-bottom:var(--hair) solid var(--ink-18);align-items:baseline;}
+.ph .zh{font-family:"Noto Sans TC",sans-serif;font-size:14px;font-weight:500;}
+.ph .native{font-size:clamp(17px,2vw,20px);font-weight:500;line-height:1.55;}
+.ph .rom{font-size:12.5px;font-weight:500;color:var(--ink-60);letter-spacing:.04em;}
+.ph .rom b{display:block;font-family:"Noto Sans TC",sans-serif;font-weight:400;font-size:12px;color:var(--ink-38);margin-top:1px;}
+
+/* ══════════ todo（可勾選，狀態存在本機瀏覽器）══════════ */
+.todo{list-style:none;margin:0;padding:0;border-top:var(--hair) solid var(--ink);}
+.todo li{border-bottom:var(--hair) solid var(--ink-38);
+  font-family:"Noto Sans TC",sans-serif;font-size:15px;font-weight:500;}
+.todo .chk{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;
+  padding:16px 0;cursor:pointer;}
+.todo input[type=checkbox]{position:absolute;opacity:0;width:0;height:0;}
+.box{width:15px;height:15px;border:1.3px solid var(--ink);margin-top:4px;flex:none;position:relative;
+  transition:background .18s ease;}
+.todo input:checked + .box{background:var(--ink);}
+.todo input:checked + .box::after{content:"";position:absolute;left:4.2px;top:.8px;
+  width:3.6px;height:8px;border:solid var(--paper);border-width:0 1.7px 1.7px 0;transform:rotate(42deg);}
+.todo input:focus-visible + .box{outline:2px solid var(--ink);outline-offset:3px;}
+.todo li.done .txt{color:var(--ink-38);text-decoration:line-through;text-decoration-thickness:1px;}
+.todo li.done small{color:var(--ink-38);text-decoration:none;}
+.todo small{display:block;font-size:12.5px;color:var(--ink-60);font-weight:400;margin-top:2px;}
+.chk-progress{font-family:"Bai Jamjuree",sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ink-60);margin:0 0 10px;}
+.chk-progress b{font-size:14px;color:var(--ink);font-variant-numeric:tabular-nums;}
+.chk-note{font-size:12px;color:var(--ink-60);margin:12px 0 0;font-family:"Noto Sans TC",sans-serif;line-height:1.6;}
+
+footer{margin-top:clamp(60px,10vw,120px);border-top:1.4px solid var(--ink);padding:20px 0 44px;
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-60);}
+
+/* ══════════ reveal ══════════ */
+.rv{opacity:1;transform:none;}
+html.js .rv{opacity:0;transform:translateY(22px) scale(.98);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
+html.js .rv.in{opacity:1;transform:none;}
+
+/* 子項逐項掉落。.day 刻意排除在外——它自己就是 .rv/IO 觀察目標，
+   若被這組子代選擇器蓋到，外層 #route 一進畫面就會整批提前顯示，逐日揭露就作廢了。 */
+html.js .rv .place,
+html.js .rv .money>ul>li,
+html.js .rv .ph,
+html.js .rv .todo>li,
+html.js .day.rv .stops>li{
+  opacity:0;transform:translateY(14px);
+  transition:opacity .6s cubic-bezier(.22,.9,.32,1.15),transform .6s cubic-bezier(.22,.9,.32,1.15);
+}
+html.js .rv.in .place,
+html.js .rv.in .money>ul>li,
+html.js .rv.in .ph,
+html.js .rv.in .todo>li,
+html.js .day.rv.in .stops>li{opacity:1;transform:none;}
+html.js .rv .place:nth-child(1),html.js .rv .money>ul>li:nth-child(1),html.js .rv .ph:nth-child(1),html.js .rv .todo>li:nth-child(1),html.js .day.rv .stops>li:nth-child(1){transition-delay:0ms;}
+html.js .rv .place:nth-child(2),html.js .rv .money>ul>li:nth-child(2),html.js .rv .ph:nth-child(2),html.js .rv .todo>li:nth-child(2),html.js .day.rv .stops>li:nth-child(2){transition-delay:45ms;}
+html.js .rv .place:nth-child(3),html.js .rv .money>ul>li:nth-child(3),html.js .rv .ph:nth-child(3),html.js .rv .todo>li:nth-child(3),html.js .day.rv .stops>li:nth-child(3){transition-delay:90ms;}
+html.js .rv .place:nth-child(4),html.js .rv .money>ul>li:nth-child(4),html.js .rv .ph:nth-child(4),html.js .rv .todo>li:nth-child(4),html.js .day.rv .stops>li:nth-child(4){transition-delay:135ms;}
+html.js .rv .place:nth-child(n+5),html.js .rv .money>ul>li:nth-child(n+5),html.js .rv .ph:nth-child(n+5),html.js .rv .todo>li:nth-child(n+5),html.js .day.rv .stops>li:nth-child(n+5){transition-delay:170ms;}
+
+@media (max-width:900px){
+  .ph{grid-template-columns:1fr 1fr;row-gap:4px;}
+  .ph .rom{grid-column:1 / -1;}
+}
+@media (max-width:760px){
+  .meta-strip{grid-template-columns:1fr 1fr;}
+  .meta-strip div:nth-child(3){border-left:0;}
+  .meta-strip div:nth-child(3),.meta-strip div:nth-child(4){border-top:var(--hair) solid var(--ink-38);}
+  .duo{grid-template-columns:1fr;}
+  .duo>*:nth-child(even){margin-top:0;}
+  .money ul{columns:1;}
+  .stop{grid-template-columns:1fr;gap:2px;}
+  .stop time{font-size:12px;color:var(--ink-60);letter-spacing:.1em;}
+  .ph{grid-template-columns:1fr;}
+}
+@media (prefers-reduced-motion:reduce){
+  .shell{scroll-behavior:auto;}
+  .art g{animation:none;opacity:1;}
+  html.js .rv{opacity:1;transform:none;transition:none;}
+  html.js .rv .place,html.js .rv .money>ul>li,
+  html.js .rv .ph,html.js .rv .todo>li,html.js .day.rv .stops>li{opacity:1;transform:none;transition:none;}
+  html.js .route::before{transform:none;transition:none;}
+  .tab-panel{animation:none;}
+  .navbottom button,.daybar button,.tabbar button,.sw,.mode,.mapbtn,.place .map,.place{transition:none;}
+}
+@media print{
+  body::before,.nav,.navbottom,.daybar-wrap,.tabbar-wrap{display:none;}
+  .rv,.art g{opacity:1!important;transform:none!important;animation:none!important;}
+  .tab-panel{display:block!important;animation:none!important;}
+  .day,.place,.phrase-group{break-inside:avoid;}
+}
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js');</script>
+
+<div class="shell" id="shell">
+
+<nav class="nav">
+  <div class="nav-in">
+    <span class="brand">TRAVEL HANDBOOK</span>
+    <div class="switch">
+      <!-- SWAP 2/4 ─ 三顆色點的 background 要跟上面調色盤的 light --ink 對應 -->
+      <button class="sw" data-theme-set="a" aria-pressed="true"  title="配色 A" aria-label="配色 A"><i style="background:#B0175B"></i></button>
+      <button class="sw" data-theme-set="b" aria-pressed="false" title="配色 B" aria-label="配色 B"><i style="background:#B8871F"></i></button>
+      <button class="sw" data-theme-set="c" aria-pressed="false" title="配色 C" aria-label="配色 C"><i style="background:#1C3B70"></i></button>
+      <button class="mode" id="modeBtn" aria-pressed="false">暗底</button>
+    </div>
+  </div>
+</nav>
+
+<nav class="navbottom">
+  <div class="navbottom-in">
+    <button type="button" data-go="top">總覽</button>
+    <button type="button" data-go="stay">住宿</button>
+    <button type="button" data-go="money">費用</button>
+    <button type="button" data-go="route">行程</button>
+    <button type="button" data-go="local">當地</button>
+    <button type="button" data-go="todo">待辦</button>
+  </div>
+</nav>
+
+<header class="wrap" id="top">
+  <div class="hero-type">
+    <h1 class="city">CITY</h1>
+    <div class="city-sub">
+      <p class="city-tc">城市</p>
+      <span class="stamp">同行者 · N Days N Nights</span>
+    </div>
+  </div>
+</header>
+
+<!-- SWAP 3/4 ─ 城市線稿。這份是佔位用的通用天際線，務必換成該城市的specifics。
+     怎麼畫、每個城市挑哪些母題，見 references/city-art.md -->
+<div class="wrap art" aria-hidden="true">
+<svg viewBox="0 0 1200 440" role="img">
+  <defs>
+    <pattern id="winA" width="17" height="21" patternUnits="userSpaceOnUse">
+      <rect x="4.5" y="5.5" width="8" height="10" fill="none" stroke="currentColor" stroke-width=".55"/>
+    </pattern>
+    <pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse">
+      <path d="M-1,8 L8,-1" fill="none" stroke="currentColor" stroke-width=".55"/>
+    </pattern>
+  </defs>
+
+  <!-- 層 1：背景（天空／遠景） -->
+  <g>
+    <path class="st thin" d="M0 130 H1200 M0 138 H1200"/>
+  </g>
+
+  <!-- 層 2：地標 -->
+  <g>
+    <path class="st" d="M470 340 L510 150 L550 340"/>
+    <path class="st thin" d="M510 150 V112 M498 130h24 M486 240h48 M478 290h64"/>
+    <rect class="st" x="452" y="340" width="116" height="14"/>
+  </g>
+
+  <!-- 層 3：中景建築 -->
+  <g>
+    <rect class="st" x="120" y="216" width="150" height="124"/>
+    <rect x="128" y="224" width="134" height="108" fill="url(#winA)" stroke="none"/>
+    <rect class="st" x="290" y="254" width="120" height="86"/>
+    <rect x="298" y="262" width="104" height="70" fill="url(#winA)" stroke="none"/>
+    <rect class="st" x="620" y="190" width="132" height="150"/>
+    <rect x="628" y="198" width="116" height="134" fill="url(#winA)" stroke="none"/>
+    <rect class="st" x="780" y="248" width="150" height="92"/>
+    <rect x="788" y="256" width="134" height="76" fill="url(#hatch)" stroke="none"/>
+    <rect class="st" x="960" y="212" width="126" height="128"/>
+    <rect x="968" y="220" width="110" height="112" fill="url(#winA)" stroke="none"/>
+  </g>
+
+  <!-- 層 4：街面（地面線＋人＋植栽） -->
+  <g>
+    <path class="st" d="M0 396 H1200"/>
+    <path class="st thin" d="M20 396h44 M104 396h44 M188 396h44 M272 396h44 M356 396h44 M440 396h44
+                             M524 396h44 M608 396h44 M692 396h44 M776 396h44 M860 396h44 M944 396h44 M1028 396h44 M1112 396h44"/>
+    <g class="st thin">
+      <circle cx="330" cy="352" r="7"/><path d="M330 359v22 M330 366l-11 8 M330 366l11 8 M330 381l-8 15 M330 381l8 15"/>
+      <circle cx="700" cy="352" r="7"/><path d="M700 359v22 M700 366l-11 8 M700 366l11 8 M700 381l-8 15 M700 381l8 15"/>
+      <path d="M1042 368 h30 l-4 28 h-22z M1057 368 q-16-20-4-32 M1057 368 q16-18 6-30 M1057 368 v-30"/>
+    </g>
+  </g>
+</svg>
+</div>
+
+<div class="wrap">
+  <div class="meta-strip">
+    <div><small>Outbound</small><b class="num">M/D HH:MM</b><small class="lo">航班 起 → 迄</small></div>
+    <div><small>Return</small><b class="num">M/D HH:MM</b><small class="lo">航班 起 → 迄</small></div>
+    <div><small>Stay 01</small><b>住宿一名稱</b><small class="lo">M/D – M/D · N 晚</small></div>
+    <div><small>Stay 02</small><b>住宿二名稱</b><small class="lo">M/D – M/D · N 晚</small></div>
+  </div>
+</div>
+
+<section class="wrap rv" id="stay">
+  <div class="sec-head"><h2>住宿</h2><span class="rule"></span><span class="eyebrow">Bases</span></div>
+  <div class="duo">
+    <article class="card">
+      <span class="tag">01</span>
+      <span class="eyebrow">M → M DD · N nights</span>
+      <h3>住宿一名稱</h3>
+      <dl>
+        <div class="kv"><dt>房東</dt><dd>姓名</dd></div>
+        <div class="kv"><dt>地址</dt><dd>地址<a class="mapbtn" href="#" target="_blank" rel="noopener">Map</a></dd></div>
+        <div class="kv"><dt>入住</dt><dd class="num">M/D 週X HH:MM</dd></div>
+        <div class="kv"><dt>退房</dt><dd class="num">M/D 週X HH:MM</dd></div>
+        <div class="kv"><dt>房費</dt><dd class="num">金額 幣別（誰負擔）</dd></div>
+      </dl>
+      <div class="alert">這裡放這間住宿的硬底線提醒，例如<b>幾點前一定要退房</b>。</div>
+    </article>
+    <article class="card">
+      <span class="tag">02</span>
+      <span class="eyebrow">M → M DD · N nights</span>
+      <h3>住宿二名稱</h3>
+      <dl>
+        <div class="kv"><dt>房源</dt><dd>來源</dd></div>
+        <div class="kv"><dt>區域</dt><dd>區域<a class="mapbtn" href="#" target="_blank" rel="noopener">Map</a></dd></div>
+        <div class="kv"><dt>配置</dt><dd>房型描述</dd></div>
+        <div class="kv"><dt>房費</dt><dd class="num">金額或「免費」</dd></div>
+      </dl>
+    </article>
+  </div>
+</section>
+
+<section class="wrap rv" id="money">
+  <div class="sec-head"><h2>費用分擔</h2><span class="rule"></span><span class="eyebrow">Who Pays</span></div>
+
+  <div class="tabbar-wrap">
+    <div class="tabbar" role="tablist" aria-label="依角色檢視費用">
+      <button type="button" class="on" data-tabgroup="money" data-tab="both">兩人</button>
+      <button type="button" data-tabgroup="money" data-tab="p1">同行者一</button>
+      <button type="button" data-tabgroup="money" data-tab="p2">同行者二</button>
+    </div>
+  </div>
+
+  <div class="tab-panel" data-tabgroup="money" data-tab="both">
+    <div class="money">
+      <ul>
+        <li><span>費用項目</span><b>誰付</b></li>
+        <li><span>費用項目</span><b>各付</b></li>
+        <li><span>費用項目</span><b>現場分攤</b></li>
+      </ul>
+    </div>
+
+    <p class="mini-h">交通費預估</p>
+    <table class="cost-tbl">
+      <tr><th>路段</th><th>系統</th><th class="r">單程／人</th></tr>
+      <tr><td>M/D 去程：起點 → 終點<small>約 N 分鐘</small></td><td>系統</td><td class="r">00–00</td></tr>
+      <tr><td>M/D 回程：終點 → 起點<small>同段反向</small></td><td>系統</td><td class="r">00–00</td></tr>
+      <tr class="sum"><td>合計</td><td></td><td class="r">000–000 幣別</td></tr>
+    </table>
+    <p class="cost-note">估算依據寫在這裡。<b>不確定的地方要誠實標明</b>，不要讓推測看起來像查證過的事實。</p>
+
+    <p class="mini-h">餐費預算 · 每人</p>
+    <table class="cost-tbl">
+      <tr><td>M/D（X）<small>備註</small></td><td class="r">000</td></tr>
+      <tr class="sum"><td>餐費小計</td><td class="r">000–000 幣別</td></tr>
+    </table>
+
+    <div class="alert" style="margin-top:clamp(20px,3vw,30px);">
+      以上<b>只含已知定價項目與估算</b>。不同幣別的支出不要混加，購物與伴手禮另外抓。
+    </div>
+  </div>
+
+  <div class="tab-panel" data-tabgroup="money" data-tab="p1" hidden>
+    <p class="mini-h">已知固定花費 · 同行者一</p>
+    <table class="cost-tbl">
+      <tr><td>項目<small>備註</small></td><td class="r">000</td></tr>
+      <tr class="sum"><td>小計</td><td class="r">0,000 幣別</td></tr>
+    </table>
+    <p class="cost-note">個人專屬支出與備註寫這裡。</p>
+
+    <p class="mini-h">合計估算 · 同行者一</p>
+    <table class="cost-tbl">
+      <tr><td>固定花費 ＋ 餐費 ＋ 交通</td><td class="r">0,000–0,000 幣別</td></tr>
+    </table>
+    <p class="cost-note">共用項目的明細在「兩人」分頁，這裡只重述算式不重複列表。</p>
+  </div>
+
+  <div class="tab-panel" data-tabgroup="money" data-tab="p2" hidden>
+    <p class="mini-h">已知固定花費 · 同行者二</p>
+    <table class="cost-tbl">
+      <tr><td>項目<small>備註</small></td><td class="r">000</td></tr>
+      <tr class="sum"><td>小計</td><td class="r">0,000 幣別</td></tr>
+    </table>
+    <p class="cost-note">個人專屬支出與備註寫這裡。</p>
+  </div>
+</section>
+
+<section class="wrap rv" id="route">
+  <div class="sec-head"><h2>行程路線</h2><span class="rule"></span><span class="eyebrow">Day by Day</span></div>
+
+  <div class="daybar-wrap">
+    <div class="daybar" role="tablist" aria-label="跳到指定日期">
+      <button type="button" data-day="d0101"><b>01</b><i>MON</i></button>
+      <button type="button" data-day="d0102"><b>02</b><i>TUE</i></button>
+    </div>
+  </div>
+
+  <div class="legend">
+    <i><span class="chip solid"></span>兩人同行</i>
+    <i><span class="chip"></span>各自行動</i>
+    <i><span class="chip half"></span>待定 / 待確認</i>
+  </div>
+
+  <div class="route">
+    <article class="day rv" id="d0101">
+      <div class="day-head"><span class="day-num num">1/1</span><span class="day-dow">Mon</span><span class="day-title">當天主題</span></div>
+      <ul class="stops">
+        <li class="stop together"><time class="num">HH:MM</time><div class="body">行程項目<a class="mapbtn" href="#" target="_blank" rel="noopener">Map</a><span class="note">補充說明</span></div></li>
+        <li class="stop"><time>上午</time><div class="body">各自行動的項目<span class="who">誰</span><span class="note">另一人這段時間的安排</span></div></li>
+        <li class="stop pending"><time class="num">HH:MM</time><div class="body">待確認的項目<span class="note"><b>為什麼還沒確定</b>，什麼時候會知道</span></div></li>
+      </ul>
+    </article>
+
+    <article class="day rv" id="d0102">
+      <div class="day-head"><span class="day-num num">1/2</span><span class="day-dow">Tue</span><span class="day-title">當天主題</span></div>
+      <ul class="stops">
+        <li class="stop together"><time>下午</time><div class="body">有分岔選項的行程
+          <div class="fork">
+            <p>選項標題</p>
+            <div><span>01</span>選項一<a class="mapbtn" href="#" target="_blank" rel="noopener">Map</a></div>
+            <div><span>02</span>選項二<a class="mapbtn" href="#" target="_blank" rel="noopener">Map</a></div>
+          </div>
+        </div></li>
+        <li class="stop together"><time class="num">HH:MM</time><div class="body">硬底線項目<span class="note">為什麼不能晚，晚了會怎樣</span></div></li>
+      </ul>
+      <div class="alert">當天的硬底線提醒放這裡。</div>
+    </article>
+  </div>
+</section>
+
+<section class="wrap rv" id="local">
+  <div class="sec-head"><h2>當地資訊</h2><span class="rule"></span><span class="eyebrow">On the Ground</span></div>
+  <div class="hint">
+    這一區放「到了當地才會用到」的東西：換匯、SIM、緊急聯絡、當地語言短句。
+    <span>目的地講的語言若跟你共通，就把語言短句整組拿掉，別硬湊。</span>
+  </div>
+
+  <div class="places">
+    <div class="place">
+      <div class="zh">地點名稱</div><div class="en">Category</div>
+      <div class="memo">位置怎麼找、營業時間、要帶什麼證件。</div>
+      <a class="map" href="#" target="_blank" rel="noopener">Google Map</a>
+    </div>
+    <div class="place">
+      <div class="zh">地點名稱</div><div class="en">Category</div>
+      <div class="native loc">當地文字</div>
+      <div class="rom">羅馬拼音</div>
+      <div class="memo">備註。</div>
+      <a class="map" href="#" target="_blank" rel="noopener">Google Map</a>
+    </div>
+  </div>
+
+  <div class="tabbar-wrap" style="margin-top:clamp(28px,4vw,40px);">
+    <div class="tabbar" role="tablist" aria-label="依主題檢視當地語言短句">
+      <button type="button" class="on" data-tabgroup="phrase" data-tab="basics">基本禮貌</button>
+      <button type="button" data-tabgroup="phrase" data-tab="taxi">搭車</button>
+      <button type="button" data-tabgroup="phrase" data-tab="order">點餐</button>
+    </div>
+  </div>
+
+  <div class="tab-panel" data-tabgroup="phrase" data-tab="basics">
+    <div class="phrase-group">
+      <h3>基本禮貌 <em>Basics</em></h3>
+      <div class="ph"><div class="zh">你好</div><div class="native loc">當地文字</div><div class="rom">羅馬拼音<b>中文近似音</b></div></div>
+      <div class="ph"><div class="zh">謝謝</div><div class="native loc">當地文字</div><div class="rom">羅馬拼音<b>中文近似音</b></div></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" data-tabgroup="phrase" data-tab="taxi" hidden>
+    <div class="phrase-group">
+      <h3>搭車 <em>In the car</em></h3>
+      <div class="ph"><div class="zh">請去這裡（同時給看地圖）</div><div class="native loc">當地文字</div><div class="rom">羅馬拼音<b>中文近似音</b></div></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" data-tabgroup="phrase" data-tab="order" hidden>
+    <div class="phrase-group">
+      <h3>點餐 <em>Ordering</em></h3>
+      <div class="ph"><div class="zh">我要這個</div><div class="native loc">當地文字</div><div class="rom">羅馬拼音<b>中文近似音</b></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap rv" id="todo">
+  <div class="sec-head"><h2>待辦</h2><span class="rule"></span><span class="eyebrow">Checklist</span></div>
+
+  <div class="tabbar-wrap">
+    <div class="tabbar" role="tablist" aria-label="待辦分類">
+      <button type="button" class="on" data-tabgroup="todo" data-tab="prep">行前準備</button>
+      <button type="button" data-tabgroup="todo" data-tab="trip">這趟要確認</button>
+    </div>
+  </div>
+
+  <!-- 行前準備：九項通用清單，每個同行者一份。內容固定，只勾選，不新增不刪除。
+       每人一個 <ul data-owner="…">，data-todo 的 id 全域固定，換行程也不要改。 -->
+  <div class="tab-panel" data-tabgroup="todo" data-tab="prep">
+    <div class="tabbar-wrap">
+      <div class="tabbar" role="tablist" aria-label="依人檢視行前準備">
+        <button type="button" class="on" data-tabgroup="prep" data-tab="p1">同行者一</button>
+        <button type="button" data-tabgroup="prep" data-tab="p2">同行者二</button>
+      </div>
+    </div>
+
+    <div class="tab-panel" data-tabgroup="prep" data-tab="p1">
+      <p class="chk-progress">已完成 <b>0</b> / 9</p>
+      <ul class="todo" data-owner="p1">
+        <li><label class="chk"><input type="checkbox" data-todo="flight"><span class="box"></span><span class="txt">訂機票</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="stay"><span class="box"></span><span class="txt">訂住宿</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="sim"><span class="box"></span><span class="txt">網卡</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="visa"><span class="box"></span><span class="txt">簽證</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="meds"><span class="box"></span><span class="txt">保健食品＋藥品</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="power"><span class="box"></span><span class="txt">充電器＋行動電源＋轉接頭</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="insurance"><span class="box"></span><span class="txt">保險（不便險＋平安險）</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="toiletries"><span class="box"></span><span class="txt">盥洗衣物（洗衣袋）＋保養品＋化妝品</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="eyewear"><span class="box"></span><span class="txt">隱形眼鏡＋墨鏡＋噴香香</span></label></li>
+      </ul>
+    </div>
+
+    <div class="tab-panel" data-tabgroup="prep" data-tab="p2" hidden>
+      <p class="chk-progress">已完成 <b>0</b> / 9</p>
+      <ul class="todo" data-owner="p2">
+        <li><label class="chk"><input type="checkbox" data-todo="flight"><span class="box"></span><span class="txt">訂機票</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="stay"><span class="box"></span><span class="txt">訂住宿</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="sim"><span class="box"></span><span class="txt">網卡</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="visa"><span class="box"></span><span class="txt">簽證</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="meds"><span class="box"></span><span class="txt">保健食品＋藥品</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="power"><span class="box"></span><span class="txt">充電器＋行動電源＋轉接頭</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="insurance"><span class="box"></span><span class="txt">保險（不便險＋平安險）</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="toiletries"><span class="box"></span><span class="txt">盥洗衣物（洗衣袋）＋保養品＋化妝品</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="eyewear"><span class="box"></span><span class="txt">隱形眼鏡＋墨鏡＋噴香香</span></label></li>
+      </ul>
+    </div>
+
+    <p class="chk-note">打勾只記在<b>你自己這支手機／這個瀏覽器</b>裡，不會同步給對方，兩人各自勾各自的。清除瀏覽器資料會一併清掉。</p>
+  </div>
+
+  <!-- 這趟要確認：行程專屬的協調事項，每趟不同。也可勾選。 -->
+  <div class="tab-panel" data-tabgroup="todo" data-tab="trip" hidden>
+    <p class="chk-progress">已完成 <b>0</b> / 2</p>
+    <ul class="todo" data-owner="trip">
+      <li><label class="chk"><input type="checkbox" data-todo="item-1"><span class="box"></span><span class="txt">待辦事項<small>為什麼重要、什麼時候要做完</small></span></label></li>
+      <li><label class="chk"><input type="checkbox" data-todo="item-2"><span class="box"></span><span class="txt">待辦事項<small>備註</small></span></label></li>
+    </ul>
+  </div>
+</section>
+
+<footer class="wrap">
+  <span>City Handbook</span>
+  <span class="num">DD — DD · MM · YYYY</span>
+  <span>同行者</span>
+</footer>
+
+</div><!-- /shell -->
+
+<script>
+/* ══════════ 這段 JS 一字不要動 ══════════
+   每一段都是踩過坑之後的解法，理由見 references/pitfalls.md。
+   要加新功能就往後面接，不要改寫既有邏輯。 */
+(function(){
+  var root = document.documentElement;
+
+  var swatches = document.querySelectorAll('.sw');
+  swatches.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      root.setAttribute('data-theme', btn.getAttribute('data-theme-set'));
+      swatches.forEach(function(b){ b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+    });
+  });
+
+  var modeBtn = document.getElementById('modeBtn');
+  modeBtn.addEventListener('click', function(){
+    var dark = root.getAttribute('data-mode') === 'dark';
+    root.setAttribute('data-mode', dark ? 'light' : 'dark');
+    modeBtn.textContent = dark ? '暗底' : '亮底';
+    modeBtn.setAttribute('aria-pressed', dark ? 'false' : 'true');
+  });
+
+  var shell = document.getElementById('shell');
+  var els = document.querySelectorAll('.rv');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function revealAll(){ els.forEach(function(e){ e.classList.add('in'); }); }
+
+  if(!('IntersectionObserver' in window) || reduce){
+    revealAll();
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    },{root:shell, rootMargin:'0px 0px -6% 0px', threshold:.05});
+    els.forEach(function(e){ io.observe(e); });
+    /* 保險：不論觀察器是否正常運作，1.4 秒後一律顯示，內容永遠不會憑空消失 */
+    setTimeout(revealAll, 1400);
+  }
+
+  /* ── 待辦打勾：狀態存在本機瀏覽器 ──────────────────────────────
+     ⚠ TRIP_ID 每一趟都要換掉，這是必改項。所有 GitHub Pages 專案共用
+     <帳號>.github.io 這一個網域，key 沒帶行程識別的話，上一趟勾的狀態
+     會直接出現在下一趟的手冊上。
+     每個項目用固定英文 id（data-todo），這樣之後改中文標題不會弄丟已勾狀態。 */
+  var TRIP_ID = 'city-YYYY-MM';
+  var STORE_KEY = 'handbook:' + TRIP_ID + ':checks';
+
+  /* localStorage 在沙盒 iframe（例如 artifact 預覽）存取會丟 SecurityError，
+     一定要包起來——否則整段腳本中斷，連導覽都會壞掉。存不了就只是不記憶，畫面照常運作。 */
+  function loadChecks(){
+    try { return JSON.parse(localStorage.getItem(STORE_KEY) || '{}') || {}; }
+    catch(e){ return {}; }
+  }
+  function saveChecks(state){
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); }
+    catch(e){ /* 無痕模式或沙盒：略過持久化 */ }
+  }
+
+  var checkState = loadChecks();
+
+  function updateProgress(){
+    document.querySelectorAll('ul.todo[data-owner]').forEach(function(ul){
+      var out = ul.parentNode.querySelector('.chk-progress b');
+      if(out) out.textContent = ul.querySelectorAll('input[type=checkbox]:checked').length;
+    });
+  }
+
+  Array.prototype.slice.call(document.querySelectorAll('.todo input[type=checkbox]')).forEach(function(cb){
+    var list = cb.closest('ul.todo');
+    var li = cb.closest('li');
+    if(!list || !li) return;
+    var key = list.getAttribute('data-owner') + ':' + cb.getAttribute('data-todo');
+    cb.checked = checkState[key] === true;
+    li.classList.toggle('done', cb.checked);
+    cb.addEventListener('change', function(){
+      if(cb.checked){ checkState[key] = true; } else { delete checkState[key]; }
+      saveChecks(checkState);
+      li.classList.toggle('done', cb.checked);
+      updateProgress();
+    });
+  });
+  updateProgress();
+
+  /* 底部導覽列是唯一的區塊導覽（頂部只剩品牌與主題切換） */
+  var bottomLinks = Array.prototype.slice.call(document.querySelectorAll('.navbottom button'));
+  var targets = bottomLinks.map(function(b){ return document.getElementById(b.getAttribute('data-go')); });
+
+  function goTo(t, extraOffset){
+    if(!t) return;
+    revealAll();
+    var navH = document.querySelector('.nav').offsetHeight;
+    var y = t.getBoundingClientRect().top - shell.getBoundingClientRect().top + shell.scrollTop - navH - (extraOffset || 0) - 10;
+    var top = Math.max(y, 0);
+    if(shell.scrollTo){ shell.scrollTo({ top: top, behavior: reduce ? 'auto' : 'smooth' }); }
+    else { shell.scrollTop = top; }
+  }
+  bottomLinks.forEach(function(btn, i){ btn.addEventListener('click', function(){ goTo(targets[i]); }); });
+
+  /* 分頁式切換：用 data-tabgroup 分組，同一頁可以有好幾組互不干擾的分頁 */
+  var tabBtns = Array.prototype.slice.call(document.querySelectorAll('.tabbar button'));
+  tabBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var group = btn.getAttribute('data-tabgroup');
+      var tab = btn.getAttribute('data-tab');
+      document.querySelectorAll('.tabbar button[data-tabgroup="' + group + '"]').forEach(function(b){
+        b.classList.toggle('on', b === btn);
+      });
+      document.querySelectorAll('.tab-panel[data-tabgroup="' + group + '"]').forEach(function(p){
+        if(p.getAttribute('data-tab') === tab){ p.removeAttribute('hidden'); }
+        else { p.setAttribute('hidden', ''); }
+      });
+    });
+  });
+
+  /* 行程區的按日期跳轉列：獨立一組目標，額外扣掉自己疊在主導覽下方的高度 */
+  var dayBtns = Array.prototype.slice.call(document.querySelectorAll('.daybar button'));
+  var dayTargets = dayBtns.map(function(b){ return document.getElementById(b.getAttribute('data-day')); });
+  var daybarEl = document.querySelector('.daybar-wrap');
+  dayBtns.forEach(function(btn, i){
+    btn.addEventListener('click', function(){
+      goTo(dayTargets[i], daybarEl ? daybarEl.offsetHeight : 0);
+    });
+  });
+  function spyDaybar(){
+    if(!dayBtns.length) return;
+    var navH = document.querySelector('.nav').offsetHeight;
+    var barH = daybarEl ? daybarEl.offsetHeight : 0;
+    var line = shell.getBoundingClientRect().top + navH + barH + 20;
+    var active = -1;
+    dayTargets.forEach(function(t, i){
+      if(t && t.getBoundingClientRect().top <= line) active = i;
+    });
+    dayBtns.forEach(function(b, j){ b.classList.toggle('on', j === active); });
+  }
+
+  /* 以「導覽列下方那條線」為判準，取最後一個已越過該線的區塊 */
+  function spy(){
+    var navH = document.querySelector('.nav').offsetHeight;
+    var line = shell.getBoundingClientRect().top + navH + 24;
+    var active = 0;
+    targets.forEach(function(t, i){
+      if(t && t.getBoundingClientRect().top <= line) active = i;
+    });
+    if(shell.scrollTop + shell.clientHeight >= shell.scrollHeight - 4){
+      active = targets.length - 1;
+    }
+    bottomLinks.forEach(function(b, j){ b.classList.toggle('on', j === active); });
+    spyDaybar();
+  }
+  var ticking = false;
+  shell.addEventListener('scroll', function(){
+    if(ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function(){ spy(); ticking = false; });
+  }, {passive:true});
+  window.addEventListener('resize', spy);
+  spy();
+})();
+</script>
+
+</body>
+</html>

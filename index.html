@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="taxi" data-mode="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>曼谷手冊 BANGKOK · 8.19—8.24</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@200;300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ══════════ ink systems: one ink + one paper, always ══════════ */
+html[data-theme="taxi"][data-mode="light"]   {--ink:#B0175B;--ink-rgb:176,23,91;  --paper:#F2ECE3;}
+html[data-theme="taxi"][data-mode="dark"]    {--ink:#FF5C9B;--ink-rgb:255,92,155; --paper:#150A0F;}
+html[data-theme="gold"][data-mode="light"]   {--ink:#8A560D;--ink-rgb:138,86,13;  --paper:#F6F0DF;}
+html[data-theme="gold"][data-mode="dark"]    {--ink:#E9AE3E;--ink-rgb:233,174,62; --paper:#12100A;}
+html[data-theme="river"][data-mode="light"]  {--ink:#1C3B70;--ink-rgb:28,59,112;  --paper:#E8EDF1;}
+html[data-theme="river"][data-mode="dark"]   {--ink:#7DB2EA;--ink-rgb:125,178,234;--paper:#070C16;}
+
+:root{
+  --ink-85:rgba(var(--ink-rgb),.85);
+  --ink-60:rgba(var(--ink-rgb),.60);
+  --ink-38:rgba(var(--ink-rgb),.38);
+  --ink-18:rgba(var(--ink-rgb),.18);
+  --ink-08:rgba(var(--ink-rgb),.08);
+  --hair:.75px;
+  --gut:clamp(20px,5vw,64px);
+  --maxw:1180px;
+  --navh:54px;
+  --gap-major:clamp(40px,6vw,64px);
+  --gap-mid:clamp(28px,4vw,44px);
+  --gap-sub:clamp(22px,3vw,34px);
+}
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+html,body{height:100%;}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Bai Jamjuree","Noto Sans TC",system-ui,sans-serif;
+  font-weight:400;line-height:1.7;letter-spacing:.01em;overflow:hidden;
+  transition:background .35s ease,color .35s ease;
+}
+.shell{
+  height:100%;overflow-y:auto;overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;scroll-behavior:smooth;
+  padding-bottom:calc(var(--navh) + env(safe-area-inset-bottom,0px));
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:99;
+  background-image:radial-gradient(var(--ink-08) .5px,transparent .5px);
+  background-size:3px 3px;opacity:.6;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--gut);padding-right:var(--gut);}
+a{color:inherit;text-decoration:none;}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.34em;text-transform:uppercase;color:var(--ink-60);}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum";}
+.th{font-family:"Noto Sans Thai","Bai Jamjuree",sans-serif;}
+
+/* ══════════ nav ══════════ */
+.nav{position:sticky;top:0;z-index:60;background:var(--paper);border-bottom:var(--hair) solid var(--ink);}
+.nav-in{max-width:var(--maxw);margin:0 auto;padding:0 var(--gut);
+  height:var(--navh);display:flex;align-items:center;gap:clamp(10px,2vw,26px);}
+.brand{font-size:11px;font-weight:700;letter-spacing:.22em;white-space:nowrap;}
+.switch{display:flex;align-items:center;gap:8px;flex:none;margin-left:auto;}
+.sw{width:17px;height:17px;border-radius:50%;border:1.2px solid var(--ink-38);
+  padding:0;cursor:pointer;background:transparent;position:relative;transition:transform .2s cubic-bezier(.34,1.4,.64,1);}
+.sw i{position:absolute;inset:2.5px;border-radius:50%;display:block;}
+.sw:hover{transform:scale(1.15);}
+.sw:active{transform:scale(.88);}
+.sw[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 2.5px var(--paper),0 0 0 3.6px var(--ink);}
+.mode{border:1.2px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;
+  font-family:"Bai Jamjuree",sans-serif;font-size:10px;font-weight:700;letter-spacing:.16em;
+  padding:4px 9px 5px;border-radius:999px;margin-left:4px;transition:background .2s,color .2s,transform .2s cubic-bezier(.34,1.4,.64,1);}
+.mode:hover{background:var(--ink);color:var(--paper);}
+.mode:active{transform:scale(.93);}
+
+/* ══════════ bottom nav (mirrors top nav so long pages don't need scrolling back up) ══════════ */
+.navbottom{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--paper);
+  border-top:var(--hair) solid var(--ink);padding-bottom:env(safe-area-inset-bottom,0px);}
+.navbottom-in{max-width:var(--maxw);margin:0 auto;padding:0 clamp(6px,2vw,var(--gut));
+  height:var(--navh);display:flex;align-items:stretch;}
+.navbottom button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  font-family:"Noto Sans TC",sans-serif;font-size:10.5px;font-weight:500;white-space:nowrap;
+  padding:6px 2px;border:0;background:none;cursor:pointer;color:var(--ink-60);
+  transition:color .2s,transform .2s cubic-bezier(.34,1.4,.64,1);}
+.navbottom button:hover{color:var(--ink);}
+.navbottom button:active{transform:scale(.9);}
+.navbottom button.on{color:var(--ink);font-weight:700;}
+.navbottom button.on::before{content:"";display:block;width:4px;height:4px;border-radius:50%;background:var(--ink);margin-bottom:1px;}
+.navbottom button::before{content:"";display:block;width:4px;height:4px;border-radius:50%;background:transparent;margin-bottom:1px;}
+
+/* ══════════ day-jump bar (by-date navigation inside the route section) ══════════ */
+.daybar-wrap{position:sticky;top:var(--navh);z-index:45;background:var(--paper);
+  margin:0 calc(var(--gut) * -1) clamp(20px,3vw,30px);padding:10px var(--gut) 12px;
+  border-bottom:var(--hair) solid var(--ink-38);}
+.daybar{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;}
+.daybar::-webkit-scrollbar{display:none;}
+.daybar button{flex:none;display:flex;flex-direction:column;align-items:center;gap:2px;
+  border:var(--hair) solid var(--ink-38);background:transparent;color:var(--ink-60);
+  padding:6px 15px 7px;cursor:pointer;font-family:"Bai Jamjuree",sans-serif;
+  transition:border-color .2s,color .2s,background .2s,transform .2s cubic-bezier(.34,1.4,.64,1);}
+.daybar button b{font-size:17px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;}
+.daybar button i{font-style:normal;font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;}
+.daybar button:hover{color:var(--ink);border-color:var(--ink-60);transform:translateY(-1px);}
+.daybar button:active{transform:translateY(0) scale(.95);}
+.daybar button.on{border-color:var(--ink);color:var(--ink);background:var(--ink-08);}
+
+/* ══════════ masthead ══════════ */
+header{padding-top:clamp(24px,4vw,44px);}
+.hero-type{padding:clamp(26px,5.5vw,56px) 0 clamp(8px,2vw,20px);}
+.city{font-size:clamp(58px,17vw,228px);font-weight:700;line-height:.8;letter-spacing:-.035em;margin:0;}
+.city-sub{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-top:clamp(10px,2vw,18px);}
+.city-tc{font-family:"Noto Sans TC",sans-serif;font-weight:900;font-size:clamp(26px,5.4vw,58px);letter-spacing:.22em;line-height:1;margin:0;}
+.stamp{border:var(--hair) solid var(--ink);border-radius:999px;padding:7px 18px 8px;
+  font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap;}
+
+/* ══════════ line art ══════════ */
+.art{margin:clamp(4px,1.5vw,14px) 0 0;}
+.art svg{display:block;width:100%;height:auto;color:var(--ink);}
+.art .st{fill:none;stroke:var(--ink);stroke-width:1;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;}
+.art .thin{stroke-width:.6;}
+.art .bold{stroke-width:1.6;}
+.art .cut{fill:var(--paper);stroke:var(--ink);stroke-width:.7;}
+.art g{opacity:0;animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards;}
+.art g:nth-child(1){animation-delay:.05s}.art g:nth-child(2){animation-delay:.14s}
+.art g:nth-child(3){animation-delay:.23s}.art g:nth-child(4){animation-delay:.32s}
+.art g:nth-child(5){animation-delay:.41s}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+.meta-strip{border-top:var(--hair) solid var(--ink);border-bottom:var(--hair) solid var(--ink);
+  display:grid;grid-template-columns:repeat(4,1fr);}
+.meta-strip div{padding:14px 16px 15px;border-left:var(--hair) solid var(--ink-38);}
+.meta-strip div:first-child{border-left:0;}
+.meta-strip b{display:block;font-size:clamp(16px,2.3vw,25px);font-weight:600;line-height:1.15;letter-spacing:-.01em;margin-top:3px;}
+.meta-strip small{font-size:10px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-60);}
+.meta-strip small.lo{letter-spacing:.1em;text-transform:none;}
+
+/* ══════════ sections ══════════ */
+section{padding-top:var(--gap-major);scroll-margin-top:calc(var(--navh) + 12px);}
+.sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:var(--gap-major);}
+.sec-head h2{font-family:"Noto Sans TC",sans-serif;font-weight:900;
+  font-size:clamp(21px,3.4vw,34px);letter-spacing:.06em;margin:0;line-height:1.2;}
+.sec-head .rule{flex:1;height:1px;background:var(--ink-38);transform:translateY(-6px);}
+
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2.4vw,26px);}
+.duo>*:nth-child(even){margin-top:clamp(18px,3vw,30px);}
+.card{border:var(--hair) solid var(--ink);padding:clamp(18px,2.6vw,28px);position:relative;}
+.card h3{font-family:"Noto Sans TC",sans-serif;font-size:clamp(16px,2vw,20px);font-weight:700;margin:6px 0 14px;letter-spacing:.04em;}
+.kv{display:flex;justify-content:space-between;gap:14px;padding:7px 0;border-top:var(--hair) dashed var(--ink-38);font-size:14px;}
+.kv:first-of-type{border-top:0;}
+.kv dt{color:var(--ink-60);white-space:nowrap;font-size:12.5px;letter-spacing:.06em;}
+.kv dd{margin:0;text-align:right;font-weight:500;}
+dl{margin:0;}
+.tag{position:absolute;top:-8px;right:-8px;background:var(--ink);color:var(--paper);
+  font-size:10px;font-weight:600;letter-spacing:.2em;padding:5px 11px 6px;transform:rotate(3deg);}
+.money{border:var(--hair) solid var(--ink);border-top-width:3px;padding:clamp(18px,2.6vw,30px);}
+.money ul{list-style:none;margin:0;padding:0;columns:2;column-gap:clamp(24px,4vw,58px);}
+.money li{break-inside:avoid;display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  padding:12px 0;border-bottom:var(--hair) dashed var(--ink-38);
+  font-family:"Noto Sans TC",sans-serif;font-size:14.5px;font-weight:500;}
+.money li b{font-family:"Bai Jamjuree",sans-serif;font-size:9.5px;font-weight:700;letter-spacing:.14em;
+  border:var(--hair) solid var(--ink);padding:2px 6px 3px;line-height:1.3;white-space:nowrap;flex:none;}
+
+/* ══════════ cost estimate ══════════ */
+.cost-tbl{width:100%;border-collapse:collapse;margin-top:clamp(14px,2vw,20px);
+  font-family:"Noto Sans TC",sans-serif;font-size:13.5px;}
+.cost-tbl th{font-family:"Bai Jamjuree",sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink-60);text-align:left;padding:0 0 9px;
+  border-bottom:1.4px solid var(--ink);}
+.cost-tbl th.r,.cost-tbl td.r{text-align:right;}
+.cost-tbl td{padding:11px 0;border-bottom:var(--hair) solid var(--ink-18);vertical-align:top;}
+.cost-tbl td.r{font-family:"Bai Jamjuree",sans-serif;font-weight:600;white-space:nowrap;
+  font-variant-numeric:tabular-nums;padding-left:12px;}
+.cost-tbl td small{display:block;font-size:11.5px;color:var(--ink-60);margin-top:2px;}
+.cost-tbl tr.sum td{border-bottom:0;border-top:1.4px solid var(--ink);padding-top:14px;
+  font-weight:700;font-size:15px;}
+.cost-note{font-size:12.5px;color:var(--ink-60);margin:14px 0 0;font-family:"Noto Sans TC",sans-serif;line-height:1.65;}
+
+/* ══════════ tabs (分頁式切換：費用分擔 by 角色、泰語隨身頁 by 主題) ══════════ */
+.tabbar-wrap{margin:0 0 clamp(22px,3.4vw,32px);}
+.tabbar{display:flex;flex-wrap:wrap;gap:8px;}
+.tabbar button{font-family:"Bai Jamjuree",sans-serif;font-size:12.5px;font-weight:700;letter-spacing:.08em;
+  padding:7px 16px 8px;border:var(--hair) solid var(--ink);background:none;color:var(--ink-60);
+  cursor:pointer;white-space:nowrap;transition:background .2s,color .2s,border-color .2s;}
+.tabbar button:hover:not(.on){color:var(--ink);border-color:var(--ink-60);}
+.tabbar button.on{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.tab-panel{animation:tabPanelIn .4s cubic-bezier(.22,.9,.32,1.1);}
+@keyframes tabPanelIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ══════════ route ══════════ */
+.legend{display:flex;gap:clamp(14px,3vw,34px);flex-wrap:wrap;align-items:center;font-size:12px;color:var(--ink-85);margin-bottom:clamp(20px,3vw,30px);}
+.legend i{display:inline-flex;align-items:center;gap:7px;font-style:normal;}
+.chip{width:11px;height:11px;border-radius:50%;border:1.2px solid var(--ink);flex:none;}
+.chip.solid{background:var(--ink);}
+.chip.half{background:linear-gradient(90deg,var(--ink) 50%,transparent 50%);}
+.route{position:relative;}
+.route::before{content:"";position:absolute;left:0;top:6px;bottom:26px;width:1.2px;background:var(--ink);
+  transform-origin:top;}
+html.js .route::before{transform:scaleY(0);transition:transform 1.1s cubic-bezier(.16,1,.3,1);}
+html.js #route.rv.in .route::before{transform:scaleY(1);}
+.day{position:relative;padding-left:clamp(26px,4vw,44px);padding-bottom:var(--gap-mid);}
+.day-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:var(--gap-mid);}
+.day-num{font-size:clamp(38px,6.6vw,74px);font-weight:700;line-height:.85;letter-spacing:-.04em;
+  display:inline-block;transform-origin:left bottom;}
+.day:nth-child(odd) .day-num{transform:rotate(-1.4deg);}
+.day:nth-child(even) .day-num{transform:rotate(1.1deg);}
+.day-dow{font-size:11px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-60);}
+.day-title{font-family:"Noto Sans TC",sans-serif;font-weight:700;font-size:clamp(14px,1.9vw,17px);letter-spacing:.08em;}
+.day-head::before{content:"";position:absolute;left:-5.4px;top:9px;width:12px;height:12px;
+  background:var(--paper);border:1.4px solid var(--ink);border-radius:50%;
+  box-shadow:0 0 0 2.4px var(--paper),0 0 0 3.8px var(--ink);}
+.stops{list-style:none;margin:0;padding:0;}
+.stop{display:grid;grid-template-columns:clamp(74px,10vw,104px) 1fr;gap:clamp(10px,2vw,22px);
+  padding:11px 0;border-top:var(--hair) solid var(--ink-18);position:relative;}
+.stop::before{content:"";position:absolute;left:calc(clamp(26px,4vw,44px) * -1 - 4.5px);top:19px;
+  width:9px;height:9px;border-radius:50%;border:1.1px solid var(--ink);background:var(--paper);}
+.stop.together::before{background:var(--ink);}
+.stop.pending::before{background:linear-gradient(90deg,var(--ink) 50%,var(--paper) 50%);}
+.stop time{font-size:13px;font-weight:600;padding-top:1px;white-space:nowrap;}
+.stop .body{font-family:"Noto Sans TC",sans-serif;font-size:14.5px;font-weight:500;line-height:1.6;}
+.stop .note{display:block;font-size:12.5px;font-weight:400;color:var(--ink-60);margin-top:3px;line-height:1.55;}
+.stop .who{font-family:"Bai Jamjuree",sans-serif;font-size:9.5px;font-weight:700;letter-spacing:.14em;
+  border:var(--hair) solid var(--ink);padding:1px 5px 2px;margin-left:8px;vertical-align:2px;white-space:nowrap;text-transform:uppercase;}
+.mapbtn{display:inline-block;font-family:"Bai Jamjuree",sans-serif;font-size:9.5px;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;border:var(--hair) solid var(--ink);
+  padding:1px 7px 2px;margin-left:8px;vertical-align:2px;white-space:nowrap;
+  text-decoration:none;transition:background .2s,color .2s,transform .2s cubic-bezier(.34,1.4,.64,1);}
+.mapbtn:hover{background:var(--ink);color:var(--paper);transform:translateY(-1px);}
+.mapbtn:active{transform:translateY(0) scale(.94);}
+.fork div .mapbtn{margin-left:auto;}
+.alert{margin-top:10px;border:1.4px solid var(--ink);padding:11px 14px;font-family:"Noto Sans TC",sans-serif;font-size:13.5px;font-weight:500;}
+.alert b{font-weight:900;letter-spacing:.04em;}
+.fork{border:var(--hair) dashed var(--ink);padding:12px 14px;margin-top:8px;}
+.fork p{margin:0 0 8px;font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-60);}
+.fork div{font-family:"Noto Sans TC",sans-serif;font-size:14px;font-weight:500;padding:5px 0;display:flex;gap:10px;align-items:baseline;}
+.fork div span{font-family:"Bai Jamjuree",sans-serif;font-weight:700;font-size:12px;letter-spacing:.1em;flex:none;}
+
+/* ══════════ thai ══════════ */
+.hint{border-left:2.4px solid var(--ink);padding:2px 0 2px 14px;margin-bottom:clamp(22px,3.4vw,34px);
+  font-family:"Noto Sans TC",sans-serif;font-size:14px;font-weight:500;max-width:62ch;}
+.hint span{display:block;color:var(--ink-60);font-weight:400;font-size:13px;margin-top:4px;}
+.places{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));
+  border-top:var(--hair) solid var(--ink);border-left:var(--hair) solid var(--ink);}
+.place{border-right:var(--hair) solid var(--ink);border-bottom:var(--hair) solid var(--ink);padding:16px 18px 18px;}
+.place .zh{font-family:"Noto Sans TC",sans-serif;font-weight:700;font-size:15px;letter-spacing:.04em;}
+.place .en{font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-60);margin-top:2px;}
+.place .thai{font-size:clamp(21px,2.6vw,27px);font-weight:700;line-height:1.5;margin:9px 0 2px;letter-spacing:.01em;}
+.place .rom{font-size:12px;font-weight:500;color:var(--ink-60);letter-spacing:.05em;}
+.place .memo{font-size:11.5px;color:var(--ink-60);margin-top:7px;font-family:"Noto Sans TC",sans-serif;line-height:1.55;}
+.place .map{display:inline-block;margin-top:10px;font-size:10px;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;border:var(--hair) solid var(--ink);padding:4px 10px 5px;
+  text-decoration:none;transition:background .2s,color .2s,transform .2s cubic-bezier(.34,1.4,.64,1);}
+.place .map:hover{background:var(--ink);color:var(--paper);transform:translateY(-1px);}
+.place .map:active{transform:translateY(0) scale(.95);}
+.place{transition:transform .3s cubic-bezier(.34,1.2,.64,1);}
+.place:hover{transform:translateY(-2px);}
+
+.phrase-group{margin-top:var(--gap-sub);}
+.phrase-group h3{font-family:"Noto Sans TC",sans-serif;font-size:14px;font-weight:900;letter-spacing:.2em;
+  margin:0 0 var(--gap-sub);padding-bottom:9px;border-bottom:1.4px solid var(--ink);
+  display:flex;justify-content:space-between;align-items:baseline;}
+.phrase-group h3 em{font-family:"Bai Jamjuree",sans-serif;font-style:normal;font-size:10px;font-weight:600;
+  letter-spacing:.24em;color:var(--ink-60);text-transform:uppercase;}
+.ph{display:grid;grid-template-columns:minmax(120px,.9fr) 1.2fr 1fr;gap:clamp(10px,2vw,22px);
+  padding:12px 0;border-bottom:var(--hair) solid var(--ink-18);align-items:baseline;}
+.ph .zh{font-family:"Noto Sans TC",sans-serif;font-size:14px;font-weight:500;}
+.ph .thai{font-size:clamp(17px,2vw,20px);font-weight:500;line-height:1.55;}
+.ph .rom{font-size:12.5px;font-weight:500;color:var(--ink-60);letter-spacing:.04em;}
+.ph .rom b{display:block;font-family:"Noto Sans TC",sans-serif;font-weight:400;font-size:12px;color:var(--ink-38);margin-top:1px;}
+
+/* ══════════ todo（可勾選，狀態存在本機瀏覽器）══════════ */
+.todo{list-style:none;margin:0;padding:0;border-top:var(--hair) solid var(--ink);}
+.todo li{border-bottom:var(--hair) solid var(--ink-38);
+  font-family:"Noto Sans TC",sans-serif;font-size:15px;font-weight:500;}
+.todo .chk{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;
+  padding:16px 0;cursor:pointer;}
+.todo input[type=checkbox]{position:absolute;opacity:0;width:0;height:0;}
+.box{width:15px;height:15px;border:1.3px solid var(--ink);margin-top:4px;flex:none;position:relative;
+  transition:background .18s ease;}
+.todo input:checked + .box{background:var(--ink);}
+.todo input:checked + .box::after{content:"";position:absolute;left:4.2px;top:.8px;
+  width:3.6px;height:8px;border:solid var(--paper);border-width:0 1.7px 1.7px 0;transform:rotate(42deg);}
+.todo input:focus-visible + .box{outline:2px solid var(--ink);outline-offset:3px;}
+.todo li.done .txt{color:var(--ink-38);text-decoration:line-through;text-decoration-thickness:1px;}
+.todo li.done small{color:var(--ink-38);text-decoration:none;}
+.todo small{display:block;font-size:12.5px;color:var(--ink-60);font-weight:400;margin-top:2px;}
+.chk-progress{font-family:"Bai Jamjuree",sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ink-60);margin:0 0 10px;}
+.chk-progress b{font-size:14px;color:var(--ink);font-variant-numeric:tabular-nums;}
+.chk-note{font-size:12px;color:var(--ink-60);margin:12px 0 0;font-family:"Noto Sans TC",sans-serif;line-height:1.6;}
+
+footer{margin-top:clamp(60px,10vw,120px);border-top:1.4px solid var(--ink);padding:20px 0 44px;
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-60);}
+
+.rv{opacity:1;transform:none;}
+html.js .rv{opacity:0;transform:translateY(22px) scale(.98);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
+html.js .rv.in{opacity:1;transform:none;}
+
+/* choreographed stagger: children of a revealed block cascade in on their own delay.
+   .day is excluded here (and handled separately) because it's independently .rv/IO-observed —
+   letting it match these descendant rules too would short-circuit its own per-day reveal
+   the moment the outer #route section (also .rv) comes into view. */
+html.js .rv .place,
+html.js .rv .money>ul>li,
+html.js .rv .ph,
+html.js .rv .todo>li,
+html.js .day.rv .stops>li{
+  opacity:0;transform:translateY(14px);
+  transition:opacity .6s cubic-bezier(.22,.9,.32,1.15),transform .6s cubic-bezier(.22,.9,.32,1.15);
+}
+html.js .rv.in .place,
+html.js .rv.in .money>ul>li,
+html.js .rv.in .ph,
+html.js .rv.in .todo>li,
+html.js .day.rv.in .stops>li{opacity:1;transform:none;}
+html.js .rv .place:nth-child(1),html.js .rv .money>ul>li:nth-child(1),html.js .rv .ph:nth-child(1),html.js .rv .todo>li:nth-child(1),html.js .day.rv .stops>li:nth-child(1){transition-delay:0ms;}
+html.js .rv .place:nth-child(2),html.js .rv .money>ul>li:nth-child(2),html.js .rv .ph:nth-child(2),html.js .rv .todo>li:nth-child(2),html.js .day.rv .stops>li:nth-child(2){transition-delay:45ms;}
+html.js .rv .place:nth-child(3),html.js .rv .money>ul>li:nth-child(3),html.js .rv .ph:nth-child(3),html.js .rv .todo>li:nth-child(3),html.js .day.rv .stops>li:nth-child(3){transition-delay:90ms;}
+html.js .rv .place:nth-child(4),html.js .rv .money>ul>li:nth-child(4),html.js .rv .ph:nth-child(4),html.js .rv .todo>li:nth-child(4),html.js .day.rv .stops>li:nth-child(4){transition-delay:135ms;}
+html.js .rv .place:nth-child(n+5),html.js .rv .money>ul>li:nth-child(n+5),html.js .rv .ph:nth-child(n+5),html.js .rv .todo>li:nth-child(n+5),html.js .day.rv .stops>li:nth-child(n+5){transition-delay:170ms;}
+
+@media (max-width:900px){
+  .ph{grid-template-columns:1fr 1fr;row-gap:4px;}
+  .ph .rom{grid-column:1 / -1;}
+}
+@media (max-width:760px){
+  .meta-strip{grid-template-columns:1fr 1fr;}
+  .meta-strip div:nth-child(3){border-left:0;}
+  .meta-strip div:nth-child(3),.meta-strip div:nth-child(4){border-top:var(--hair) solid var(--ink-38);}
+  .duo{grid-template-columns:1fr;}
+  .duo>*:nth-child(even){margin-top:0;}
+  .money ul{columns:1;}
+  .stop{grid-template-columns:1fr;gap:2px;}
+  .stop time{font-size:12px;color:var(--ink-60);letter-spacing:.1em;}
+  .ph{grid-template-columns:1fr;}
+}
+@media (prefers-reduced-motion:reduce){
+  .shell{scroll-behavior:auto;}
+  .art g{animation:none;opacity:1;}
+  html.js .rv{opacity:1;transform:none;transition:none;}
+  html.js .rv .place,html.js .rv .money>ul>li,
+  html.js .rv .ph,html.js .rv .todo>li,html.js .day.rv .stops>li{opacity:1;transform:none;transition:none;}
+  html.js .route::before{transform:none;transition:none;}
+  .tab-panel{animation:none;}
+  .navbottom button,.daybar button,.tabbar button,.sw,.mode,.mapbtn,.place .map,.place{transition:none;}
+}
+@media print{
+  body::before,.nav,.navbottom,.daybar-wrap,.tabbar-wrap{display:none;}
+  .rv,.art g{opacity:1!important;transform:none!important;animation:none!important;}
+  .tab-panel{display:block!important;animation:none!important;}
+  .day,.place,.phrase-group{break-inside:avoid;}
+}
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js');</script>
+
+<div class="shell" id="shell">
+
+<nav class="nav">
+  <div class="nav-in">
+    <span class="brand">TRAVEL HANDBOOK</span>
+    <div class="switch">
+      <button class="sw" data-theme-set="taxi"  aria-pressed="true"  title="計程車桃紅" aria-label="配色：計程車桃紅"><i style="background:#B0175B"></i></button>
+      <button class="sw" data-theme-set="gold"  aria-pressed="false" title="廟宇金"     aria-label="配色：廟宇金"><i style="background:#B8871F"></i></button>
+      <button class="sw" data-theme-set="river" aria-pressed="false" title="湄南河靛藍" aria-label="配色：湄南河靛藍"><i style="background:#1C3B70"></i></button>
+      <button class="mode" id="modeBtn" aria-pressed="false">暗底</button>
+    </div>
+  </div>
+</nav>
+
+<nav class="navbottom">
+  <div class="navbottom-in">
+    <button type="button" data-go="top">總覽</button>
+    <button type="button" data-go="stay">住宿</button>
+    <button type="button" data-go="money">費用</button>
+    <button type="button" data-go="route">行程</button>
+    <button type="button" data-go="exchange">換匯</button>
+    <button type="button" data-go="thai">泰語</button>
+    <button type="button" data-go="todo">待辦</button>
+  </div>
+</nav>
+
+<header class="wrap" id="top">
+  <div class="hero-type">
+    <h1 class="city">BANGKOK</h1>
+    <div class="city-sub">
+      <p class="city-tc">曼谷</p>
+      <span class="stamp">鈞 × 平 · 6 Days 5 Nights</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap art" aria-hidden="true">
+<svg viewBox="0 0 1200 440" role="img">
+  <defs>
+    <pattern id="winA" width="17" height="21" patternUnits="userSpaceOnUse">
+      <rect x="4.5" y="5.5" width="8" height="10" fill="none" stroke="currentColor" stroke-width=".55"/>
+    </pattern>
+    <pattern id="winB" width="12" height="15" patternUnits="userSpaceOnUse">
+      <rect x="3" y="4" width="6" height="7" fill="none" stroke="currentColor" stroke-width=".5"/>
+    </pattern>
+    <pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse">
+      <path d="M-1,8 L8,-1" fill="none" stroke="currentColor" stroke-width=".55"/>
+    </pattern>
+    <pattern id="slat" width="6" height="5" patternUnits="userSpaceOnUse">
+      <path d="M0,2.5 H6" fill="none" stroke="currentColor" stroke-width=".5"/>
+    </pattern>
+  </defs>
+
+  <g>
+    <path class="st thin" d="M120 440 V96 M400 440 V96 M690 440 V96 M980 440 V96 M1168 440 V96"/>
+    <path class="st thin" d="M106 116h28 M386 116h28 M676 116h28 M966 116h28 M1154 116h28
+                             M102 140h36 M382 140h36 M672 140h36 M962 140h36 M1150 140h36
+                             M108 162h24 M388 162h24 M678 162h24 M968 162h24 M1156 162h24"/>
+    <path class="st thin" d="M120 118 Q260 152 400 118 Q545 154 690 118 Q835 152 980 118 Q1074 138 1168 118"/>
+    <path class="st thin" d="M120 124 Q260 162 400 124 Q545 164 690 124 Q835 162 980 124 Q1074 146 1168 124"/>
+    <path class="st thin" d="M120 142 Q260 178 400 142 Q545 180 690 142 Q835 178 980 142 Q1074 162 1168 142"/>
+    <path class="st thin" d="M120 147 Q260 188 400 147 Q545 190 690 147 Q835 188 980 147 Q1074 170 1168 147"/>
+    <path class="st thin" d="M120 164 Q260 196 400 164 Q545 198 690 164 Q835 196 980 164 Q1074 180 1168 164"/>
+    <path class="st thin" d="M112 146 q-16 22 4 30 q18 7 14-14 M392 146 q-16 22 4 30 q18 7 14-14
+                             M682 146 q-16 22 4 30 q18 7 14-14 M972 146 q-16 22 4 30 q18 7 14-14"/>
+  </g>
+
+  <g>
+    <path class="st" d="M150 330 L166 254 L179 196 L191 150 L201 110 L210 56 L219 110 L229 150 L241 196 L254 254 L270 330"/>
+    <path class="st thin" d="M210 56 V30 M204 44h12 M201 110h18 M191 150h38 M179 196h62 M166 254h88"/>
+    <path class="st thin" d="M172 292h76 M176 272h68 M186 330 V254 M210 330 V196 M234 330 V254"/>
+    <path class="st" d="M126 330 L136 282 L144 250 L150 222 L156 250 L164 282 L174 330"/>
+    <path class="st" d="M246 330 L256 282 L264 250 L270 222 L276 250 L284 282 L294 330"/>
+    <path class="st thin" d="M156 222 V206 M270 222 V206"/>
+    <rect class="st" x="118" y="330" width="184" height="16"/>
+    <path class="st thin" d="M140 330v16 M162 330v16 M184 330v16 M206 330v16 M228 330v16 M250 330v16 M272 330v16"/>
+    <path class="st" d="M312 262 L372 214 L432 262"/>
+    <path class="st" d="M302 300 L372 252 L442 300"/>
+    <path class="st thin" d="M312 262 q-12-14-4-24 M432 262 q12-14 4-24 M302 300 q-14-16-5-27 M442 300 q14-16 5-27"/>
+    <path class="st thin" d="M372 214 V202 M366 208h12"/>
+    <rect class="st" x="310" y="300" width="124" height="30"/>
+    <path class="st thin" d="M330 330v-20 q6-8 12 0v20 M366 330v-20 q6-8 12 0v20 M402 330v-20 q6-8 12 0v20"/>
+  </g>
+
+  <g>
+    <rect class="st" x="452" y="204" width="248" height="126"/>
+    <rect x="458" y="212" width="236" height="58" fill="url(#winB)" stroke="none"/>
+    <path class="st thin" d="M502 204v126 M552 204v126 M602 204v126 M652 204v126"/>
+    <path class="st" d="M452 276 h248 M446 288 h260"/>
+    <rect x="452" y="276" width="248" height="12" fill="url(#hatch)" stroke="none"/>
+    <rect x="458" y="294" width="236" height="36" fill="url(#slat)" stroke="none"/>
+    <path class="st thin" d="M452 294h248"/>
+    <rect class="st thin" x="512" y="212" width="13" height="56"/>
+    <rect x="512" y="212" width="13" height="56" fill="url(#hatch)" stroke="none"/>
+    <rect class="st thin" x="614" y="216" width="13" height="48"/>
+    <rect x="614" y="216" width="13" height="48" fill="url(#hatch)" stroke="none"/>
+    <path class="st thin" d="M452 204 h248 M462 198h26 M666 198h26"/>
+  </g>
+
+  <g>
+    <rect class="st" x="722" y="176" width="118" height="154"/>
+    <rect x="728" y="182" width="106" height="142" fill="url(#winA)" stroke="none"/>
+    <rect class="st thin" x="742" y="158" width="26" height="18"/>
+    <path class="st thin" d="M746 176v-18 M764 176v-18 M790 176v-14 h22 v14"/>
+    <rect class="st" x="860" y="116" width="92" height="214"/>
+    <rect x="866" y="122" width="80" height="202" fill="url(#winB)" stroke="none"/>
+    <path class="st thin" d="M906 116 V72 M898 92h16"/>
+    <rect class="st" x="972" y="74" width="122" height="256"/>
+    <rect x="978" y="80" width="110" height="244" fill="url(#winA)" stroke="none"/>
+    <rect class="cut" x="1044" y="112" width="30" height="30"/>
+    <rect class="cut" x="1010" y="152" width="30" height="30"/>
+    <rect class="cut" x="1046" y="192" width="30" height="30"/>
+    <rect class="cut" x="986" y="232" width="30" height="30"/>
+    <rect class="cut" x="1030" y="268" width="30" height="30"/>
+    <path class="st thin" d="M1033 74V52 M1033 52h-14 M1033 60h-10"/>
+    <rect class="st" x="1112" y="228" width="88" height="102"/>
+    <rect x="1118" y="234" width="76" height="90" fill="url(#winB)" stroke="none"/>
+  </g>
+
+  <g>
+    <path class="st bold" d="M0 346 H1200"/>
+    <path class="st thin" d="M0 356 H1200"/>
+    <path class="st thin" d="M20 424h44 M104 424h44 M188 424h44 M272 424h44 M356 424h44 M440 424h44 M524 424h44 M608 424h44 M692 424h44 M776 424h44 M860 424h44 M944 424h44 M1028 424h44 M1112 424h44"/>
+    <path class="st" d="M176 402 v-32 q0-16 16-16 h16 l10-20 h44 q10 0 12 10 l6 26 v32"/>
+    <path class="st thin" d="M208 354 h46 M216 372h30 v22 h-30z M180 372h18"/>
+    <path class="st" d="M172 340 q46-16 92 0"/>
+    <path class="st thin" d="M186 340v14 M254 340v12"/>
+    <circle class="st" cx="196" cy="404" r="13"/><circle class="st thin" cx="196" cy="404" r="4"/>
+    <circle class="st" cx="252" cy="404" r="13"/><circle class="st thin" cx="252" cy="404" r="4"/>
+    <path class="st" d="M176 404 h6 M210 404h28"/>
+    <g class="st thin">
+      <circle cx="330" cy="366" r="7"/><path d="M330 373v22 M330 380l-11 8 M330 380l11 8 M330 395l-8 22 M330 395l8 22"/>
+      <circle cx="356" cy="368" r="6"/><path d="M356 374v20 M356 380l9 7 M356 394l-7 22 M356 394l7 22"/>
+      <circle cx="596" cy="366" r="7"/><path d="M596 373v22 M596 380l-11 6 M596 380l11 6 M596 395l-8 22 M596 395l8 22"/>
+      <circle cx="908" cy="366" r="7"/><path d="M908 373v22 M908 380l-10 8 M908 380l10 8 M908 395l-8 22 M908 395l8 22"/>
+      <circle cx="932" cy="368" r="6"/><path d="M932 374v20 M932 381l-9 6 M932 394l-7 22 M932 394l7 22"/>
+    </g>
+    <path class="st" d="M430 336 q54-30 108 0"/>
+    <path class="st thin" d="M462 336 q22-20 44 0 M484 336v-22 M478 314h12"/>
+    <path class="st" d="M484 336 v34"/>
+    <rect class="st" x="438" y="370" width="94" height="32"/>
+    <rect x="442" y="374" width="86" height="24" fill="url(#hatch)" stroke="none"/>
+    <circle class="st" cx="458" cy="410" r="9"/><circle class="st" cx="514" cy="410" r="9"/>
+    <path class="st thin" d="M446 370v-10 h18v10 M498 370v-10h18v10"/>
+    <circle class="st" cx="686" cy="402" r="15"/><circle class="st thin" cx="686" cy="402" r="5"/>
+    <circle class="st" cx="756" cy="402" r="15"/><circle class="st thin" cx="756" cy="402" r="5"/>
+    <path class="st" d="M686 402 l20-26 h30 l20 26 M706 376 h34 M700 386 h44"/>
+    <path class="st thin" d="M736 376 l10-16 h14 M746 360 h16"/>
+    <circle class="st thin" cx="726" cy="342" r="8"/>
+    <path class="st thin" d="M726 350v18 M726 356l-14 12 M726 356l14 12"/>
+    <g class="st thin">
+      <path d="M1042 402 h30 l-4 22 h-22z M1057 402 q-16-20-4-32 M1057 402 q16-18 6-30 M1057 402 v-30"/>
+      <path d="M1108 404 h26 l-4 20 h-18z M1121 404 q-14-16-4-26 M1121 404 q14-14 5-24"/>
+    </g>
+  </g>
+</svg>
+</div>
+
+<div class="wrap">
+  <div class="meta-strip">
+    <div><small>Outbound</small><b class="num">8/19 13:25</b><small class="lo">VZ571 TPE → BKK</small></div>
+    <div><small>Return</small><b class="num">8/24 09:10</b><small class="lo">VZ568 BKK → TPE</small></div>
+    <div><small>Stay 01</small><b>克隆托伊的房間</b><small class="lo">8/19 – 8/21 · 2 晚</small></div>
+    <div><small>Stay 02</small><b>F 的 Loft</b><small class="lo">8/21 – 8/24 · 3 晚</small></div>
+  </div>
+</div>
+
+<section class="wrap rv" id="stay">
+  <div class="sec-head"><h2>住宿</h2><span class="rule"></span><span class="eyebrow">Two Bases</span></div>
+  <div class="duo">
+    <article class="card">
+      <span class="tag">01</span>
+      <span class="eyebrow">19 → 21 Aug · 2 nights</span>
+      <h3>克隆托伊的房間</h3>
+      <dl>
+        <div class="kv"><dt>房東</dt><dd>Khongthongskol</dd></div>
+        <div class="kv"><dt>地址</dt><dd>5/1-3 Sukhumvit Road<a class="mapbtn" href="https://maps.app.goo.gl/FpSfetp1MZ25TQ4JA" target="_blank" rel="noopener">Map</a></dd></div>
+        <div class="kv"><dt>入住</dt><dd class="num">8/19 週三 15:00</dd></div>
+        <div class="kv"><dt>退房</dt><dd class="num">8/21 週五 11:00</dd></div>
+        <div class="kv"><dt>房費</dt><dd class="num">1,675 TWD（鈞負擔）</dd></div>
+      </dl>
+      <div class="alert">實際請抓 <b>10:45 前</b>退房，才趕得上放行李與下午行程。</div>
+    </article>
+    <article class="card">
+      <span class="tag">02</span>
+      <span class="eyebrow">21 → 24 Aug · 3 nights</span>
+      <h3>曼谷市中心 Loft 公寓</h3>
+      <dl>
+        <div class="kv"><dt>房源</dt><dd>F（朋友）</dd></div>
+        <div class="kv"><dt>房東</dt><dd>Diow · 超讚房東</dd></div>
+        <div class="kv"><dt>區域</dt><dd>Klongtoey 空堤縣<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Khlong%20Toei%20Bangkok" target="_blank" rel="noopener">Map</a></dd></div>
+        <div class="kv"><dt>配置</dt><dd>2 房 2 衛 · 自助入住</dd></div>
+        <div class="kv"><dt>房費</dt><dd class="num">免費（朋友家）</dd></div>
+      </dl>
+      <div class="alert">早上 <b>07:00–07:40</b> 想在這裡運動，開放時間<b>待向 F 確認</b>。</div>
+    </article>
+  </div>
+</section>
+
+<section class="wrap rv" id="money">
+  <div class="sec-head"><h2>費用分擔</h2><span class="rule"></span><span class="eyebrow">Who Pays</span></div>
+
+  <div class="tabbar-wrap">
+    <div class="tabbar" role="tablist" aria-label="依角色檢視費用">
+      <button type="button" class="on" data-tabgroup="money" data-tab="both">兩人</button>
+      <button type="button" data-tabgroup="money" data-tab="kj">鈞</button>
+      <button type="button" data-tabgroup="money" data-tab="yp">平</button>
+    </div>
+  </div>
+
+  <div class="tab-panel" data-tabgroup="money" data-tab="both">
+    <div class="money">
+      <ul>
+        <li><span>8/19–21 住宿（第一段）1,675 TWD</span><b>鈞</b></li>
+        <li><span>8/21–24 住宿（F 家，第二段）</span><b>免費</b></li>
+        <li><span>機場來回接送</span><b>鈞</b></li>
+        <li><span>8/20 往返 Latin Thursday 車費</span><b>鈞</b></li>
+        <li><span>8/23 往返 bachata social 車費</span><b>鈞</b></li>
+        <li><span>8/20 Latin Thursday 門票 300 THB／人</span><b>各付</b></li>
+        <li><span>8/21 Swing Era 門票 2,500 THB</span><b>鈞自費</b></li>
+        <li><span>8/22 Bachata &amp; Kizomba 門票 300 THB／人</span><b>各付</b></li>
+        <li><span>8/23 bachata 門票 300 THB／人（含一杯飲料）</span><b>各付</b></li>
+        <li><span>其餘餐費與門票</span><b>現場分攤</b></li>
+      </ul>
+    </div>
+
+    <p class="mini-h" style="font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-60);margin:clamp(28px,4vw,40px) 0 4px;padding-bottom:9px;border-bottom:1.4px solid var(--ink);">捷運車資預估 · BTS／MRT</p>
+    <table class="cost-tbl">
+      <tr><th>路段</th><th>系統</th><th class="r">單程／人</th></tr>
+      <tr><td>8/20 去程：住宿 → 午餐／嵩越路（Charoen Krung 一帶）<small>約 13 分鐘・6–7 站</small></td><td>MRT</td><td class="r">29–32</td></tr>
+      <tr><td>8/20 回程：嵩越路一帶 → 住宿<small>同段反向</small></td><td>MRT</td><td class="r">29–32</td></tr>
+      <tr><td>8/21 去程：住宿 → 碼頭（前往鄭王廟）<small>約 21 分鐘・約 10 站，Sukhumvit／Silom 線免費轉乘</small></td><td>BTS</td><td class="r">44–51</td></tr>
+      <tr><td>8/21 回程：鄭王廟／碼頭 → 住所<small>同段反向</small></td><td>BTS</td><td class="r">44–51</td></tr>
+      <tr><td>8/23 去程：Chit Lom → Mo Chit（洽圖洽）<small>約 18 分鐘・8 站</small></td><td>BTS</td><td class="r">35–42</td></tr>
+      <tr><td>8/23 回程：洽圖洽 → 住所<small>同段反向</small></td><td>BTS</td><td class="r">35–42</td></tr>
+      <tr class="sum"><td>三日去回合計</td><td></td><td class="r">216–250 THB</td></tr>
+    </table>
+    <p class="cost-note">
+      站數是用行程裡已寫的搭乘時間換算（每站約 2 分鐘），不是官方站別對照表，僅供估算方向；回程假設走同一條路線反向，實際依當下路況與轉乘可能有出入。
+      實際金額請以車站購票機或 Rabbit Card 感應為準：
+      <a class="mapbtn" href="https://www.bts.co.th/eng/" target="_blank" rel="noopener">BTS 官網</a>
+      <a class="mapbtn" href="https://www.bangkokmrt.co.th/" target="_blank" rel="noopener">MRT 官網</a><br>
+      上表已含去程與回程，是<b>單程、每人</b>的金額，三段都是兩人同行，所以直接計入每人合計，不用再乘 2。8/21 回程如果改坐計程車，就不會用到這段車資，屬於前面 Grab／機車那類開銷；另外過河的渡輪票（單程或來回約 4–40 THB，視搭乘處而定）不含在這張表裡。
+    </p>
+    <p class="cost-note">
+      <b>Rabbit Card 只能用在 BTS，不能刷 MRT。</b>MRT 要另外用威打卡機的代幣，或直接用感應信用卡／金融卡（Visa、Mastercard）過閘門，不用另外辦 MRT 卡。MRT 的部分兩人都直接刷卡過閘門就好。
+    </p>
+
+    <p class="mini-h" style="font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-60);margin:clamp(28px,4vw,40px) 0 4px;padding-bottom:9px;border-bottom:1.4px solid var(--ink);">餐費預算 · 每人</p>
+    <table class="cost-tbl">
+      <tr><td>8/19（三）<small>只有晚餐，抵達當晚</small></td><td class="r">150</td></tr>
+      <tr><td>8/20（四）<small>含咖啡廳</small></td><td class="r">600–700</td></tr>
+      <tr><td>8/21（五）<small>含咖啡廳</small></td><td class="r">600–700</td></tr>
+      <tr><td>8/22（六）<small>含咖啡廳</small></td><td class="r">600–700</td></tr>
+      <tr><td>8/23（日）</td><td class="r">450–600</td></tr>
+      <tr><td>8/24（一）<small>清晨出發，只有早餐</small></td><td class="r">100</td></tr>
+      <tr class="sum"><td>餐費小計</td><td class="r">2,500–2,950 THB</td></tr>
+    </table>
+
+    <div class="alert" style="margin-top:clamp(20px,3vw,30px);">
+      以上<b>只含已知定價項目、餐費估算與捷運車資</b>。住宿（第一段 1,675 TWD，第二段 F 家免費）、機場接送、8/20 與 8/23 的 social 車費由鈞全額負擔，未計入平該欄；住宿是台幣支出，跟其他 THB 項目不同單位，沒有併進下面的 THB 小計。鈞還有網卡與旅遊保險等個人台幣支出，只算在她自己那份，明細在「鈞」分頁。Grab／機車費另計，因為起訖點還沒完全固定，浮動較大。不含購物與伴手禮——水門市場、洽圖洽、TOFU 美妝的預算請另外抓。
+    </div>
+  </div>
+
+  <div class="tab-panel" data-tabgroup="money" data-tab="kj" hidden>
+    <p class="mini-h" style="font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-60);margin:0 0 4px;padding-bottom:9px;border-bottom:1.4px solid var(--ink);">已知固定花費 · 鈞</p>
+    <table class="cost-tbl">
+      <tr><td>8/21 Swing Era 門票</td><td class="r">2,500</td></tr>
+      <tr><td>8/20 Latin Thursday 門票<small>含 workshop</small></td><td class="r">300</td></tr>
+      <tr><td>8/22 Bachata &amp; Kizomba 門票</td><td class="r">300</td></tr>
+      <tr><td>8/23 Bachata Fever 門票<small>含一杯飲料</small></td><td class="r">300</td></tr>
+      <tr><td>8/19 腳底按摩<small>含小費 40（紙鈔，不給硬幣）</small></td><td class="r">340</td></tr>
+      <tr><td>8/21 泰服體驗<small>150–300，抓上限</small></td><td class="r">300</td></tr>
+      <tr><td>8/22 綠肺船票＋腳踏車</td><td class="r">140</td></tr>
+      <tr><td>機場來回接送<small>單趟含過路費抓 500，來回抓整數</small></td><td class="r">1,000</td></tr>
+      <tr class="sum"><td>小計</td><td class="r">5,180 THB</td></tr>
+    </table>
+    <p class="cost-note">再加上 8/20 與 8/23 兩趟 social 車費（金額依實際叫車而定），由鈞全額負擔。8/21 Swing Era 門票 2,500 THB 會在台灣先刷卡付掉，不用在泰國另外準備現金——金額已經算在上面的 THB 小計裡，不重複列。</p>
+
+    <p class="mini-h" style="font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-60);margin:clamp(28px,4vw,40px) 0 4px;padding-bottom:9px;border-bottom:1.4px solid var(--ink);">台灣先刷好 · 鈞個人（TWD）</p>
+    <table class="cost-tbl">
+      <tr><td>住宿<small>第一段 8/19–21，第二段 F 家免費</small></td><td class="r">1,675</td></tr>
+      <tr><td>網卡</td><td class="r">269</td></tr>
+      <tr><td>旅遊保險</td><td class="r">1,378</td></tr>
+      <tr class="sum"><td>小計</td><td class="r">3,322 TWD</td></tr>
+    </table>
+    <p class="cost-note">這幾項出發前就在台灣刷卡付完，跟上面的 THB 小計是不同幣別，不合併計算；網卡與旅遊保險是鈞自己的，不算共同費用。</p>
+
+    <p class="mini-h" style="font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-60);margin:clamp(28px,4vw,40px) 0 4px;padding-bottom:9px;border-bottom:1.4px solid var(--ink);">合計估算 · 鈞</p>
+    <table class="cost-tbl">
+      <tr><td>固定花費 5,180 ＋ 餐費 2,500–2,950 ＋ 捷運車資 216–250</td><td class="r">7,896–8,380 THB</td></tr>
+      <tr><td>台灣先刷好（住宿＋網卡＋旅遊保險）</td><td class="r">3,322 TWD</td></tr>
+    </table>
+    <p class="cost-note">兩筆是不同幣別，沒有加在一起。THB 那筆的餐費與捷運車資明細在「兩人」分頁，兩人金額一樣，各自計入自己的合計；不含購物與伴手禮。</p>
+  </div>
+
+  <div class="tab-panel" data-tabgroup="money" data-tab="yp" hidden>
+    <p class="mini-h" style="font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-60);margin:0 0 4px;padding-bottom:9px;border-bottom:1.4px solid var(--ink);">已知固定花費 · 平</p>
+    <table class="cost-tbl">
+      <tr><td>8/20 Latin Thursday 門票<small>若同行，自付</small></td><td class="r">300</td></tr>
+      <tr><td>8/22 Bachata &amp; Kizomba 門票<small>若同行</small></td><td class="r">300</td></tr>
+      <tr><td>8/23 Bachata Fever 門票<small>若同行</small></td><td class="r">300</td></tr>
+      <tr><td>8/19 腳底按摩<small>含小費 40（紙鈔，不給硬幣）</small></td><td class="r">340</td></tr>
+      <tr><td>8/21 泰服體驗</td><td class="r">300</td></tr>
+      <tr><td>8/22 綠肺船票＋腳踏車</td><td class="r">140</td></tr>
+      <tr class="sum"><td>小計</td><td class="r">1,680 THB</td></tr>
+    </table>
+    <p class="cost-note">住宿與機場接送由鈞負擔，不列入——住宿只有第一段 1,675 TWD 要付，第二段 F 家免費。三場舞會門票都是「決定同行才產生」，全部不去的話小計降到 780 THB。</p>
+
+    <p class="mini-h" style="font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-60);margin:clamp(28px,4vw,40px) 0 4px;padding-bottom:9px;border-bottom:1.4px solid var(--ink);">合計估算 · 平</p>
+    <table class="cost-tbl">
+      <tr><td>三場舞會都去<small>1,680 ＋ 餐費 2,500–2,950 ＋ 捷運車資 216–250</small></td><td class="r">4,396–4,880</td></tr>
+      <tr><td>舞會都不去<small>780 ＋ 餐費 2,500–2,950 ＋ 捷運車資 216–250</small></td><td class="r">3,496–3,980</td></tr>
+    </table>
+    <p class="cost-note">餐費與捷運車資的明細在「兩人」分頁，兩人金額一樣，各自計入自己的合計。單位皆為 THB，不含購物與伴手禮。</p>
+  </div>
+</section>
+
+<section class="wrap rv" id="route">
+  <div class="sec-head"><h2>行程路線</h2><span class="rule"></span><span class="eyebrow">Day by Day</span></div>
+
+  <div class="daybar-wrap">
+    <div class="daybar" role="tablist" aria-label="跳到指定日期">
+      <button type="button" data-day="d0819"><b>19</b><i>WED</i></button>
+      <button type="button" data-day="d0820"><b>20</b><i>THU</i></button>
+      <button type="button" data-day="d0821"><b>21</b><i>FRI</i></button>
+      <button type="button" data-day="d0822"><b>22</b><i>SAT</i></button>
+      <button type="button" data-day="d0823"><b>23</b><i>SUN</i></button>
+      <button type="button" data-day="d0824"><b>24</b><i>MON</i></button>
+    </div>
+  </div>
+
+  <div class="legend">
+    <i><span class="chip solid"></span>兩人同行</i>
+    <i><span class="chip"></span>各自行動</i>
+    <i><span class="chip half"></span>待定 / 待確認</i>
+  </div>
+
+  <div class="route">
+    <article class="day rv" id="d0819">
+      <div class="day-head"><span class="day-num num">8/19</span><span class="day-dow">Wed</span><span class="day-title">抵達曼谷</span></div>
+      <ul class="stops">
+        <li class="stop together"><time class="num">07:30</time><div class="body">搭統聯客運前往機場<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=%E6%9C%9D%E9%A6%AC%E8%BD%89%E9%81%8B%E7%AB%99" target="_blank" rel="noopener">Map</a><span class="note">朝馬轉運站上車，記得提早到站</span></div></li>
+        <li class="stop together"><time class="num">13:25</time><div class="body">台北 TPE 起飛<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=%E6%A1%83%E5%9C%92%E5%9C%8B%E9%9A%9B%E6%A9%9F%E5%A0%B4" target="_blank" rel="noopener">Map</a><span class="note">VZ571</span></div></li>
+        <li class="stop together"><time class="num">16:10</time><div class="body">抵達曼谷 BKK<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Suvarnabhumi%20Airport" target="_blank" rel="noopener">Map</a></div></li>
+        <li class="stop together"><time>傍晚</time><div class="body">入住克隆托伊的房間<a class="mapbtn" href="https://maps.app.goo.gl/FpSfetp1MZ25TQ4JA" target="_blank" rel="noopener">Map</a><span class="note">5/1-3 Sukhumvit Road</span></div></li>
+        <li class="stop together"><time>晚上</time><div class="body">逛 Terminal 21 Asok 百貨<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Terminal%2021%20Asok%20Bangkok" target="_blank" rel="noopener">Map</a><span class="note">IG 推薦泰國品牌：Breezy（香氛）、ChorChang（大象包）、LineCense（泰式插畫文創）、VPADA（草編鞋），都適合當伴手禮；就在 BTS Asok／MRT Sukhumvit 站旁，交通方便；行程抓寬鬆一點，時間不夠可以跳過</span></div></li>
+        <li class="stop together"><time>晚上</time><div class="body">SW1 Market 夜市<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=SW1%20Night%20Market%20Bangkok" target="_blank" rel="noopener">Map</a></div></li>
+        <li class="stop together"><time>晚上</time><div class="body">THONGSUK MASSAGE<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Thongsuk%20Massage%20Bangkok" target="_blank" rel="noopener">Map</a><span class="note">評價不錯，腳底按摩 1 小時 300 THB<br>小費給紙鈔不給硬幣：20、40（兩張 20）或 50，一般給 20 或 40</span></div></li>
+      </ul>
+    </article>
+
+    <article class="day rv" id="d0820">
+      <div class="day-head"><span class="day-num num">8/20</span><span class="day-dow">Thu</span><span class="day-title">嵩越路 × Latin Thursday</span></div>
+      <ul class="stops">
+        <li class="stop"><time>上午</time><div class="body">鈞辦公<a class="mapbtn" href="https://maps.app.goo.gl/DiuWURFPghWnGC8T6?g_st=ic" target="_blank" rel="noopener">Map</a><a class="mapbtn" href="https://atlasworkspace.io/?utm_source=gbp" target="_blank" rel="noopener">Atlas Workspace</a><span class="who">鈞</span><span class="note">Atlas Workspace，一天 380 THB，第一次使用免費，<b>鈞已登記</b>；平如果要一起來，<b>要自己先上網登記</b>才能免費用第一次</span></div></li>
+        <li class="stop"><time>上午</time><div class="body">平自由行程<span class="who">平</span><span class="note">鈞辦公這段時間的建議去處，<b>12:30 直接在中餐餐廳會合</b></span>
+          <div class="fork">
+            <p>Two options</p>
+            <div><span>01</span>早餐推薦，吃完在附近逛（到中餐地點機車約 3 分鐘、走路約 12 分鐘）<a class="mapbtn" href="https://maps.app.goo.gl/c884fVxheG2LpBfZ9?g_st=ic" target="_blank" rel="noopener">Map</a></div>
+            <div><span>02</span>Cloud 11，上個月才開幕<a class="mapbtn" href="https://maps.app.goo.gl/jMbRfYky5AYvRVN66?g_st=ic" target="_blank" rel="noopener">Map</a></div>
+          </div>
+        </div></li>
+        <li class="stop together"><time class="num">12:30</time><div class="body">與 J朋友吃中餐 · Khao Moo Daeng Si Morakot<a class="mapbtn" href="https://maps.app.goo.gl/Zv3BqV2qxtLhWRxf9" target="_blank" rel="noopener">Map</a><span class="note">鈞的朋友；<b>12:30 準時，不要遲到</b><br>交通：捷運 13 分鐘＋走路（住宿→車站 5 分鐘，車站→餐廳 11 分鐘）；或全程計程車 16 分鐘<br>592 ถ. เจริญกรุง แขวงสัมพันธวงศ์ เขตสัมพันธวงศ์ กรุงเทพมหานคร 10100</span></div></li>
+        <li class="stop together"><time>下午</time><div class="body">就近逛嵩越路一帶<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Song%20Wat%20Road%20Bangkok" target="_blank" rel="noopener">Map</a><span class="note">Song Wat · 老城區河岸倉庫街，吃完直接續攤最省移動</span></div></li>
+        <li class="stop together"><time>下午</time><div class="body">找一家咖啡廳坐著
+          <div class="fork">
+            <p>Cafés on Song Wat</p>
+            <div><span>01</span>Woodbrook Bangkok — 河景<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Woodbrook%20Bangkok%20Song%20Wat" target="_blank" rel="noopener">Map</a></div>
+            <div><span>02</span>Terroir.BKK SONGWAT — 咖啡很好<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Terroir.BKK%20Songwat" target="_blank" rel="noopener">Map</a></div>
+            <div><span>03</span>BEANS Coffee Roaster Songwat — 藝廊咖啡<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=BEANS%20Coffee%20Roaster%20Songwat" target="_blank" rel="noopener">Map</a></div>
+            <div><span>04</span>Baan Rim Naam Songwat — 河景<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Baan%20Rim%20Naam%20Songwat" target="_blank" rel="noopener">Map</a></div>
+          </div>
+        </div></li>
+        <li class="stop together"><time>下午</time><div class="body">體力夠的話走去買斑蘭蛋捲當伴手禮<a class="mapbtn" href="https://maps.app.goo.gl/RSWEzUCDQrr2Feet7?g_st=ic" target="_blank" rel="noopener">Map</a><span class="note">順路加碼，逛累了直接跳過也沒關係</span></div></li>
+        <li class="stop pending"><time class="num">20:00–24:00</time><div class="body">Hot Latin Thursday @ THE RED DOOR BKK<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=The%20Red%20Door%20BKK%20Sukhumvit%2024" target="_blank" rel="noopener">Map</a><span class="who">鈞</span><span class="note">20:00–21:00 Workshop（講師 Marcus）→ 21:00–24:00 Latin Social Party（SBK Music）<br>門票 300 THB（含 workshop），酒水全晚 75 折；89/8 3F, Sukhumvit 24 Alley，住宿坐車約 12 分鐘<br>平可自行決定是否同行（門票自付）；<b>官方 8/16 才公告，屆時再確認</b></span></div></li>
+      </ul>
+    </article>
+
+    <article class="day rv" id="d0821">
+      <div class="day-head"><span class="day-num num">8/21</span><span class="day-dow">Fri</span><span class="day-title">換宿 × 泰服 × Swing</span></div>
+      <ul class="stops">
+        <li class="stop"><time>上午–11:30</time><div class="body">鈞辦公<span class="who">鈞</span><span class="note">大約辦公到 <b>11:30</b>，地點還沒定；這段時間平自行安排去處</span>
+          <div class="fork">
+            <p>Two options</p>
+            <div><span>01</span>直接在住宿內辦公</div>
+            <div><span>02</span>外出辦公<a class="mapbtn" href="https://maps.app.goo.gl/pzoVihCZ4QyLzh1k9?g_st=ic" target="_blank" rel="noopener">Map</a></div>
+          </div>
+        </div></li>
+        <li class="stop together"><time class="num">10:45 前</time><div class="body">退房，離開克隆托伊的房間<a class="mapbtn" href="https://maps.app.goo.gl/FpSfetp1MZ25TQ4JA" target="_blank" rel="noopener">Map</a></div></li>
+        <li class="stop together"><time>上午</time><div class="body">到 F 房源放行李<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Khlong%20Toei%20Bangkok" target="_blank" rel="noopener">Map</a></div></li>
+        <li class="stop together"><time>中午</time><div class="body">中餐<a class="mapbtn" href="https://maps.app.goo.gl/RdEdGas3W2zp1Gc78?g_st=ic" target="_blank" rel="noopener">候選名單</a><span class="note">可以問 F 要不要一起</span></div></li>
+        <li class="stop together"><time>下午</time><div class="body">鄭王廟穿泰服拍照<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Wat%20Arun%20Bangkok" target="_blank" rel="noopener">Map</a><span class="note">交通：捷運 21 分鐘＋走路 13 分鐘（或坐車 5 分鐘）；泰服體驗約 150–300 THB／人</span></div></li>
+        <li class="stop together"><time class="num">17:30</time><div class="body">晚餐<span class="note">盡量準時，後面要趕場</span></div></li>
+        <li class="stop"><time class="num">19:00</time><div class="body">Swing Era @ Thammasat Association<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Thammasat%20Association%20Bangkok" target="_blank" rel="noopener">Map</a><span class="who">鈞</span><span class="note">門票 2,500 THB · 最晚 22:30 離場</span></div></li>
+        <li class="stop"><time class="num">22:41–22:45</time><div class="body">回到 F 房源<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Khlong%20Toei%20Bangkok" target="_blank" rel="noopener">Map</a><span class="who">鈞</span><span class="note">車程約 11–15 分鐘，確保 22:45 前到，一離場就叫車</span></div></li>
+        <li class="stop"><time>晚上</time><div class="body">平自由行程<span class="who">平</span>
+          <div class="fork">
+            <p>Three options</p>
+            <div><span>01</span>Terminal 21（Asok）<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Terminal%2021%20Asok%20Bangkok" target="_blank" rel="noopener">Map</a></div>
+            <div><span>02</span>SWU Nightmarket — 大學內，便宜又有樂團表演，可坐草地上；<b>只有週五 16:00–21:00</b>，21:00 收攤<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Srinakharinwirot%20University%20Prasarnmit%20Bangkok" target="_blank" rel="noopener">Map</a></div>
+            <div><span>03</span>夜市推薦<a class="mapbtn" href="https://maps.app.goo.gl/a4e6sgUi41NP3FWf6?g_st=ic" target="_blank" rel="noopener">Map</a></div>
+          </div>
+        </div></li>
+      </ul>
+    </article>
+
+    <article class="day rv" id="d0822">
+      <div class="day-head"><span class="day-num num">8/22</span><span class="day-dow">Sat</span><span class="day-title">綠肺 × Bachata Night</span></div>
+      <ul class="stops">
+        <li class="stop pending"><time>關鍵</time><div class="body">整個早上取決於：F 要不要一起去綠肺
+          <div class="fork">
+            <p>先問 F</p>
+            <div><span>A</span>F 一起去 → 飯店內運動＋外出買早餐，中餐在島上吃</div>
+            <div><span>B</span>F 不去 → 外出買早餐＋去做瑜伽，中午先跟 F 吃飯，到島上只喝咖啡</div>
+          </div>
+        </div></li>
+        <li class="stop pending"><time class="num">07:00–07:40</time><div class="body">〔方案 A〕在 F 房源運動<span class="who">鈞</span><span class="note">此時段是否開放 — 待問 F；平可考慮一起游泳或運動</span></div></li>
+        <li class="stop together"><time>早上</time><div class="body">外出買早餐</div></li>
+        <li class="stop pending"><time class="num">09:00–10:00</time><div class="body">〔方案 B〕FREE Morning Vinyasa Flow<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=House%20of%20OM%20Sanctuary%20Bangkok" target="_blank" rel="noopener">Map</a><span class="who">鈞</span><span class="note">House of Om Sanctuary；<b>8/22 場次要等官方公告才能確定</b><br>交通：機車約 8 分鐘（兩人划算的話坐車），最晚 08:40 出發；記得穿瑜伽服</span></div></li>
+        <li class="stop pending"><time>上午</time><div class="body">〔方案 B〕結束後回住所梳洗</div></li>
+        <li class="stop pending"><time>中午</time><div class="body">〔方案 B〕與 F 吃中餐<span class="note">吃飽再出發，島上就不吃正餐</span></div></li>
+        <li class="stop together"><time>出發</time><div class="body">搭船前往 Bang Kachao 綠肺<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Bang%20Kachao%20Bangkok" target="_blank" rel="noopener">Map</a><span class="note">方案 A：與 F 一起 10:30–11:00 出發；方案 B：吃完中餐後自行前往</span>
+          <div class="fork">
+            <p>Which pier</p>
+            <div><span>01</span>Wat Bang Na Nok Pier — 來回 14 THB／人，車程較遠約 20 分鐘<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Wat%20Bang%20Na%20Nok%20Pier" target="_blank" rel="noopener">Map</a></div>
+            <div><span>02</span>Wat Khlong Toei Nok Pier — 來回 40 THB／人，車程約 12 分鐘<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Wat%20Khlong%20Toei%20Nok%20Pier" target="_blank" rel="noopener">Map</a></div>
+          </div>
+        </div></li>
+        <li class="stop together"><time>島上</time><div class="body">租腳踏車<span class="note">100 THB／人／天</span></div></li>
+        <li class="stop pending"><time>中午</time><div class="body">〔方案 A〕島上吃中餐<a class="mapbtn" href="https://maps.app.goo.gl/DQeX7oixQbZ5RkB66?g_st=ic" target="_blank" rel="noopener">候選名單</a><span class="note">方案 B 已跟 F 吃過，這段跳過</span>
+          <div class="fork">
+            <p>Lunch options</p>
+            <div><span>01</span>The Ozone Bangkrajao<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=The%20Ozone%20Bang%20Kachao" target="_blank" rel="noopener">Map</a></div>
+            <div><span>02</span>Auntie Joom's Restaurant（สาขาลูก）<a class="mapbtn" href="https://maps.app.goo.gl/BADAfR63XKMjJRtw6" target="_blank" rel="noopener">Map</a></div>
+            <div><span>03</span>Chormalee Coffee<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Chormalee%20Coffee%20Bang%20Kachao" target="_blank" rel="noopener">Map</a></div>
+          </div>
+        </div></li>
+        <li class="stop together"><time>下午</time><div class="body">騎車繞島，找間咖啡廳<span class="note">方案 B 的島上行程重點就在這裡</span>
+          <div class="fork">
+            <p>Café options</p>
+            <div><span>01</span>I-SUAN HOME CAFE<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=I-SUAN%20HOME%20CAFE%20Bang%20Kachao" target="_blank" rel="noopener">Map</a></div>
+            <div><span>02</span>Baanlukbua（coconut bar）<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Baanlukbua%20Bang%20Kachao" target="_blank" rel="noopener">Map</a></div>
+          </div>
+        </div></li>
+        <li class="stop together"><time class="num">16:40</time><div class="body">最晚離開島上<span class="note">還腳踏車、搭船回市區，這是硬底線</span></div></li>
+        <li class="stop together"><time class="num">17:00–19:00</time><div class="body">晚餐 · Asok 附近<span class="note">F 可能來、也可能不來；刻意排早，他晚上若有事才來得及</span></div></li>
+        <li class="stop together"><time class="num">19:00–19:40</time><div class="body">回住所梳洗換衣<span class="note"><b>19:40 前一定要出發</b></span></div></li>
+        <li class="stop pending"><time class="num">20:00–22:15</time><div class="body">Sensual Saturday · Bachata &amp; Kizomba Night<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Heaven%2017%20Bar%20and%20Lounge%20Sukhumvit%2017" target="_blank" rel="noopener">Map</a><span class="who">鈞</span><span class="note">Workshop 20:00–21:00＋Social，門票 300 THB；地點 HEAVEN 17（Sukhumvit 17），距 Asok 站走路 2 分鐘；預計 22:00 離場，最晚不超過 22:15；平可自行決定是否同行；<b>官方 8/16 才公告，屆時再確認</b></span></div></li>
+        <li class="stop"><time class="num">22:00–22:15</time><div class="body">離場，走回住所<span class="note">預計 22:00 走，視情況可能提早或多留一下，最晚不超過 22:15</span></div></li>
+      </ul>
+    </article>
+
+    <article class="day rv" id="d0823">
+      <div class="day-head"><span class="day-num num">8/23</span><span class="day-dow">Sun</span><span class="day-title">水門市場 × 洽圖洽</span></div>
+      <ul class="stops">
+        <li class="stop pending"><time class="num">07:00–07:40</time><div class="body">在 F 房源運動<span class="who">鈞</span><span class="note">此時段是否開放 — 待問 F；備案附近按摩</span></div></li>
+        <li class="stop together"><time class="num">09:00–12:00</time><div class="body">搭捷運去水門市場 Pratunam Market<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Pratunam%20Market%20Bangkok" target="_blank" rel="noopener">Map</a></div></li>
+        <li class="stop together"><time>上午</time><div class="body">Keltis Studio<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=813%2F52%20Soi%20Poonsup%20First%20Phetchaburi%2019%20Pratunam%20Bangkok" target="_blank" rel="noopener">Map</a><span class="note">平價流行女裝與牛仔褲／休閒長褲聞名的批發零售店，在水門市場核心區碧武里路（Phetchaburi Soi 19）</span></div></li>
+        <li class="stop together"><time>上午</time><div class="body">Chunyu<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Arck%20Hotel%20Pratunam%20Bangkok" target="_blank" rel="noopener">Map</a><span class="note">日常甜美韓系服飾；店家沒公佈精確門牌，官方說法是在 Arck Hotel 右手邊，Map 按鈕先定位到飯店</span></div></li>
+        <li class="stop together"><time>上午</time><div class="body">Bykim<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Shibuya%20Pratunam%20Bangkok" target="_blank" rel="noopener">Map</a><span class="note">歐美系辣妹風格服飾；店家 IG 寫的地址是 Shibuya 大樓 1 樓 65 號（1F65），聯絡 IG：bykim_bangkok</span></div></li>
+        <li class="stop together"><time>上午</time><div class="body">TOFU SKINCARE MEGAMART<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=TOFU%20Skincare%20Megamart%20Bangkok" target="_blank" rel="noopener">Map</a><span class="note">美妝補貨</span></div></li>
+        <li class="stop together"><time>中午</time><div class="body">中餐<a class="mapbtn" href="https://maps.app.goo.gl/ELPAzU4wh8ViW8cb6?g_st=ic" target="_blank" rel="noopener">Map</a></div></li>
+        <li class="stop together"><time>下午</time><div class="body">洽圖洽週末市集<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Chatuchak%20Weekend%20Market" target="_blank" rel="noopener">Map</a><span class="note">捷運 Chit Lom → Mo Chit，約 18 分鐘</span></div></li>
+        <li class="stop together"><time>下午</time><div class="body">逛累了就去按摩<span class="note">洽圖洽周邊很多按摩店，小費記得給紙鈔</span></div></li>
+        <li class="stop together"><time class="num">17:00</time><div class="body">最晚離開洽圖洽<span class="note">回住所要 30 分鐘（捷運＋走路），17:30 才到得了</span></div></li>
+        <li class="stop together"><time class="num">17:30–19:40</time><div class="body">回住所梳洗、吃晚餐、整理行李<span class="note">隔天清晨 05:40 就要出發，行李今晚一定要收好</span></div></li>
+        <li class="stop pending"><time class="num">20:00 前</time><div class="body">抵達 BBG Bachata Fever Social · The Mesh<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Four%20Points%20by%20Sheraton%20Bangkok%20Sukhumvit%2015" target="_blank" rel="noopener">Map</a><span class="who">鈞</span><span class="note">Workshop＋Social，門票 300 THB／人（含一杯飲料），計程車約 7 分鐘，車費鈞負擔；平可自行決定是否同行；<b>官方 8/16 才公告，屆時再確認</b></span></div></li>
+        <li class="stop together"><time class="num">22:00</time><div class="body">最晚回住所<span class="note">隔天要早起趕飛機</span></div></li>
+      </ul>
+    </article>
+
+    <article class="day rv" id="d0824">
+      <div class="day-head"><span class="day-num num">8/24</span><span class="day-dow">Mon</span><span class="day-title">返程</span></div>
+      <ul class="stops">
+        <li class="stop together"><time class="num">05:40</time><div class="body">最晚搭上 Uber 前往機場<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Suvarnabhumi%20Airport" target="_blank" rel="noopener">Map</a></div></li>
+        <li class="stop together"><time class="num">09:10</time><div class="body">曼谷 BKK 起飛<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Suvarnabhumi%20Airport" target="_blank" rel="noopener">Map</a><span class="note">VZ568</span></div></li>
+        <li class="stop together"><time class="num">13:55</time><div class="body">抵達台北 TPE<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=%E6%A1%83%E5%9C%92%E5%9C%8B%E9%9A%9B%E6%A9%9F%E5%A0%B4" target="_blank" rel="noopener">Map</a></div></li>
+        <li class="stop pending"><time>抵達後</time><div class="body">搭客運回台中
+          <div class="fork">
+            <p>先問統聯：有沒有到豐原？</p>
+            <div><span>A</span>有到豐原，且比朝馬慢不到 50 分鐘 → 直接搭到豐原<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=%E8%B1%90%E5%8E%9F%E8%BD%89%E9%81%8B%E7%AB%99" target="_blank" rel="noopener">Map</a></div>
+            <div><span>B</span>沒有到豐原，或慢超過 50 分鐘 → 改搭到台中朝馬（統聯、國光都可選）<a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=%E6%9C%9D%E9%A6%AC%E8%BD%89%E9%81%8B%E7%AB%99" target="_blank" rel="noopener">Map</a></div>
+          </div>
+        </div></li>
+      </ul>
+      <div class="alert">出發前一晚先叫好車、行李收妥，<b>05:40 是硬底線</b>。</div>
+    </article>
+  </div>
+</section>
+
+<section class="wrap rv" id="exchange">
+  <div class="sec-head"><h2>換匯</h2><span class="rule"></span><span class="eyebrow">Currency Exchange</span></div>
+  <div class="hint">
+    幾家都在 Sukhumvit／Asok 一帶，匯率差不多，選最順路的一家就好。
+    <span><b>記得帶護照</b>，現場換匯需要登記證件。</span>
+  </div>
+  <div class="places">
+    <div class="place">
+      <div class="zh">橘色 SuperRich（Asok 分店）</div><div class="en">Currency Exchange</div>
+      <div class="memo">BTS Asok 站 1 號出口外，近空鐵站本體。營業約 10:00–20:00。<b>記得帶護照</b>，換匯需要登記證件。</div>
+      <a class="map" href="https://maps.app.goo.gl/xANA8z7HQ1tiZi247?g_st=ic" target="_blank" rel="noopener">Google Map</a>
+    </div>
+    <div class="place">
+      <div class="zh">橘色 SuperRich（素坤逸分店）</div><div class="en">Currency Exchange</div>
+      <div class="memo">在 Sukhumvit 大馬路上，跟 Asok 分店不同點。<b>記得帶護照</b>，換匯需要登記證件。</div>
+      <a class="map" href="https://maps.app.goo.gl/oZWnQsRxqvKCn3So9?g_st=ic" target="_blank" rel="noopener">Google Map</a>
+    </div>
+    <div class="place">
+      <div class="zh">Max Exchange（Asok 分店）</div><div class="en">Currency Exchange</div>
+      <div class="memo">BTS Asok 站 4 號出口，進入 Terminal 21 手扶梯旁。匯率與 SuperRich 不相上下。<b>記得帶護照</b>，換匯需要登記證件。</div>
+      <a class="map" href="https://maps.app.goo.gl/4KPmWt4X9ufu9Lro8?g_st=ic" target="_blank" rel="noopener">Google Map</a>
+    </div>
+    <div class="place">
+      <div class="zh">Asok Exchange</div><div class="en">Currency Exchange</div>
+      <div class="memo">在 Sukhumvit 大馬路旁，位置明顯，勝在方便，不用特地繞進站內。<b>記得帶護照</b>，換匯需要登記證件。</div>
+      <a class="map" href="https://www.google.com/maps/search/?api=1&query=Asok%20Exchange%20Bangkok" target="_blank" rel="noopener">Google Map</a>
+    </div>
+  </div>
+</section>
+
+<section class="wrap rv" id="thai">
+  <div class="sec-head"><h2>泰語隨身頁</h2><span class="rule"></span><span class="eyebrow">Point &amp; Say</span></div>
+  <div class="hint">
+    講不通的時候，直接把泰文那行放大給司機或店家看。
+    <span>唸法用羅馬拼音，底下附中文近似音，唸出七成像就聽得懂。女生句尾加語助詞：肯定句用 ค่ะ（khâ），疑問句用 คะ（khá）。</span>
+  </div>
+
+  <div class="tabbar-wrap">
+    <div class="tabbar" role="tablist" aria-label="依主題檢視泰語短句">
+      <button type="button" class="on" data-tabgroup="thai" data-tab="basics">基本禮貌</button>
+      <button type="button" data-tabgroup="thai" data-tab="taxi">搭車</button>
+      <button type="button" data-tabgroup="thai" data-tab="order">點餐</button>
+      <button type="button" data-tabgroup="thai" data-tab="market">市集殺價</button>
+      <button type="button" data-tabgroup="thai" data-tab="massage">按摩</button>
+      <button type="button" data-tabgroup="thai" data-tab="misc">其他常用</button>
+    </div>
+  </div>
+
+  <div class="tab-panel" data-tabgroup="thai" data-tab="basics">
+  <div class="phrase-group">
+    <h3>基本禮貌 <em>Basics</em></h3>
+    <div class="ph"><div class="zh">你好</div><div class="thai th">สวัสดีค่ะ</div><div class="rom">sà-wàt-dii khâ<b>沙瓦低 卡</b></div></div>
+    <div class="ph"><div class="zh">謝謝</div><div class="thai th">ขอบคุณค่ะ</div><div class="rom">khɔ̀ɔp-khun khâ<b>摳普昆 卡</b></div></div>
+    <div class="ph"><div class="zh">不好意思／對不起</div><div class="thai th">ขอโทษค่ะ</div><div class="rom">khɔ̌ɔ-thôot khâ<b>摳拓 卡</b></div></div>
+    <div class="ph"><div class="zh">沒關係</div><div class="thai th">ไม่เป็นไร</div><div class="rom">mâi pen rai<b>埋奔萊</b></div></div>
+    <div class="ph"><div class="zh">不用了，謝謝</div><div class="thai th">ไม่เอาค่ะ</div><div class="rom">mâi ao khâ<b>埋凹 卡</b></div></div>
+    <div class="ph"><div class="zh">我聽不懂</div><div class="thai th">ไม่เข้าใจค่ะ</div><div class="rom">mâi khâo jai khâ<b>埋考債 卡</b></div></div>
+    <div class="ph"><div class="zh">你會說英文嗎</div><div class="thai th">พูดภาษาอังกฤษได้ไหมคะ</div><div class="rom">phûut phaa-sǎa ang-krìt dâi mǎi khá<b>普 帕薩 昂哥利 帶麥 卡</b></div></div>
+  </div>
+  </div>
+
+  <div class="tab-panel" data-tabgroup="thai" data-tab="taxi" hidden>
+  <div class="phrase-group">
+    <h3>搭車 · 給司機 <em>In the car</em></h3>
+    <div class="ph"><div class="zh">請去這裡（同時給看地圖）</div><div class="thai th">ไปที่นี่ค่ะ</div><div class="rom">pai thîi-nîi khâ<b>拜 替尼 卡</b></div></div>
+    <div class="ph"><div class="zh">請跳表</div><div class="thai th">เปิดมิเตอร์ด้วยค่ะ</div><div class="rom">pə̀ət mí-təə dûai khâ<b>撥 米特 賭埃 卡</b></div></div>
+    <div class="ph"><div class="zh">多少錢？</div><div class="thai th">เท่าไหร่คะ</div><div class="rom">thâo-rài khá<b>套來 卡</b></div></div>
+    <div class="ph"><div class="zh">大概要多久？</div><div class="thai th">ใช้เวลานานไหมคะ</div><div class="rom">chái wee-laa naan mǎi khá<b>猜 威拉 南 麥 卡</b></div></div>
+    <div class="ph"><div class="zh">我趕時間</div><div class="thai th">รีบหน่อยค่ะ</div><div class="rom">rîip nɔ̀i khâ<b>力 諾伊 卡</b></div></div>
+    <div class="ph"><div class="zh">請開空調</div><div class="thai th">เปิดแอร์ด้วยค่ะ</div><div class="rom">pə̀ət ɛɛ dûai khâ<b>撥 A 賭埃 卡</b></div></div>
+    <div class="ph"><div class="zh">停這裡就好</div><div class="thai th">จอดตรงนี้ค่ะ</div><div class="rom">jɔ̀ɔt trong-níi khâ<b>週 中尼 卡</b></div></div>
+    <div class="ph"><div class="zh">請幫我叫車</div><div class="thai th">เรียกแท็กซี่ให้หน่อยได้ไหมคะ</div><div class="rom">rîak thɛ́k-sîi hâi nɔ̀i dâi mǎi khá<b>利阿 貼西 嗨諾伊 帶麥 卡</b></div></div>
+  </div>
+  </div>
+
+  <div class="tab-panel" data-tabgroup="thai" data-tab="order" hidden>
+  <div class="phrase-group">
+    <h3>點餐 <em>Ordering</em></h3>
+    <div class="ph"><div class="zh">我要這個</div><div class="thai th">เอาอันนี้ค่ะ</div><div class="rom">ao an-níi khâ<b>凹 安尼 卡</b></div></div>
+    <div class="ph"><div class="zh">不要辣</div><div class="thai th">ไม่เผ็ดค่ะ</div><div class="rom">mâi phèt khâ<b>埋撇 卡</b></div></div>
+    <div class="ph"><div class="zh">一點點辣就好</div><div class="thai th">เผ็ดนิดหน่อยค่ะ</div><div class="rom">phèt nít-nɔ̀i khâ<b>撇 尼諾伊 卡</b></div></div>
+    <div class="ph"><div class="zh">不要香菜</div><div class="thai th">ไม่ใส่ผักชีค่ะ</div><div class="rom">mâi sài phàk-chii khâ<b>埋賽 帕齊 卡</b></div></div>
+    <div class="ph"><div class="zh">不加糖</div><div class="thai th">ไม่ใส่น้ำตาลค่ะ</div><div class="rom">mâi sài nám-taan khâ<b>埋賽 南噹 卡</b></div></div>
+    <div class="ph"><div class="zh">開水／冰的</div><div class="thai th">น้ำเปล่า ／ เย็น</div><div class="rom">náam plào ／ yen<b>南泡 ／ 煙</b></div></div>
+    <div class="ph"><div class="zh">好吃！</div><div class="thai th">อร่อยค่ะ</div><div class="rom">à-rɔ̀i khâ<b>阿咧 卡</b></div></div>
+    <div class="ph"><div class="zh">買單</div><div class="thai th">เช็คบิลค่ะ</div><div class="rom">chék bin khâ<b>切 冰 卡</b></div></div>
+  </div>
+  </div>
+
+  <div class="tab-panel" data-tabgroup="thai" data-tab="market" hidden>
+  <div class="phrase-group">
+    <h3>市集殺價 <em>Markets</em></h3>
+    <div class="ph"><div class="zh">這個多少錢？</div><div class="thai th">อันนี้เท่าไหร่คะ</div><div class="rom">an-níi thâo-rài khá<b>安尼 套來 卡</b></div></div>
+    <div class="ph"><div class="zh">可以算便宜一點嗎？</div><div class="thai th">ลดได้ไหมคะ</div><div class="rom">lót dâi mǎi khá<b>洛 帶麥 卡</b></div></div>
+    <div class="ph"><div class="zh">太貴了</div><div class="thai th">แพงไปค่ะ</div><div class="rom">phɛɛng pai khâ<b>拋 拜 卡</b></div></div>
+    <div class="ph"><div class="zh">買兩個可以便宜嗎？</div><div class="thai th">ซื้อสองอัน ลดได้ไหมคะ</div><div class="rom">sʉ́ʉ sɔ̌ɔng an, lót dâi mǎi khá<b>思 頌安，洛 帶麥 卡</b></div></div>
+    <div class="ph"><div class="zh">可以刷卡嗎？</div><div class="thai th">รูดบัตรได้ไหมคะ</div><div class="rom">rûut bàt dâi mǎi khá<b>路 巴 帶麥 卡</b></div></div>
+    <div class="ph"><div class="zh">我先看看</div><div class="thai th">ดูเฉยๆ ค่ะ</div><div class="rom">duu chə̌əi chə̌əi khâ<b>賭 車伊車伊 卡</b></div></div>
+  </div>
+  </div>
+
+  <div class="tab-panel" data-tabgroup="thai" data-tab="massage" hidden>
+  <div class="phrase-group">
+    <h3>按摩 <em>Massage</em></h3>
+    <div class="ph"><div class="zh">泰式按摩</div><div class="thai th">นวดแผนไทย</div><div class="rom">nûat phɛ̌ɛn thai<b>努阿 潘泰</b></div></div>
+    <div class="ph"><div class="zh">腳底按摩</div><div class="thai th">นวดเท้า</div><div class="rom">nûat tháo<b>努阿 討</b></div></div>
+    <div class="ph"><div class="zh">一小時多少錢？</div><div class="thai th">ชั่วโมงละเท่าไหร่คะ</div><div class="rom">chûa-moong lá thâo-rài khá<b>初蒙 拉 套來 卡</b></div></div>
+    <div class="ph"><div class="zh">輕一點</div><div class="thai th">เบาๆ หน่อยค่ะ</div><div class="rom">bao bao nɔ̀i khâ<b>包包 諾伊 卡</b></div></div>
+    <div class="ph"><div class="zh">重一點</div><div class="thai th">หนักหน่อยค่ะ</div><div class="rom">nàk nɔ̀i khâ<b>那 諾伊 卡</b></div></div>
+    <div class="ph"><div class="zh">這裡會痛</div><div class="thai th">ตรงนี้เจ็บค่ะ</div><div class="rom">trong-níi jèp khâ<b>中尼 接 卡</b></div></div>
+    <div class="ph"><div class="zh">這給你（遞小費時）</div><div class="thai th">อันนี้ให้ค่ะ</div><div class="rom">an-níi hâi khâ<b>安尼 嗨 卡</b></div></div>
+    <div class="hint" style="margin:14px 0 0;">
+      小費給紙鈔，不給硬幣。
+      <span>20、40（兩張 20）或 50 都可以，一般給 20 或 40。記得留幾張 20 元紙鈔在身上。</span>
+    </div>
+  </div>
+  </div>
+
+  <div class="tab-panel" data-tabgroup="thai" data-tab="misc" hidden>
+  <div class="phrase-group">
+    <h3>其他常用 <em>Just in case</em></h3>
+    <div class="ph"><div class="zh">廁所在哪裡？</div><div class="thai th">ห้องน้ำอยู่ที่ไหนคะ</div><div class="rom">hɔ̂ng-náam yùu thîi-nǎi khá<b>紅南 友 替奈 卡</b></div></div>
+    <div class="ph"><div class="zh">我迷路了</div><div class="thai th">หลงทางค่ะ</div><div class="rom">lǒng thaang khâ<b>攏 湯 卡</b></div></div>
+    <div class="ph"><div class="zh">可以幫我拍照嗎？</div><div class="thai th">ถ่ายรูปให้หน่อยได้ไหมคะ</div><div class="rom">thàai rûup hâi nɔ̀i dâi mǎi khá<b>台 路 嗨諾伊 帶麥 卡</b></div></div>
+    <div class="ph"><div class="zh">有 wifi 嗎？</div><div class="thai th">มีไวไฟไหมคะ</div><div class="rom">mii wai-fai mǎi khá<b>密 歪壞 麥 卡</b></div></div>
+    <div class="ph"><div class="zh">請等我一下</div><div class="thai th">รอสักครู่นะคะ</div><div class="rom">rɔɔ sàk-khrûu ná khá<b>囉 薩枯 那 卡</b></div></div>
+  </div>
+  </div>
+</section>
+
+<section class="wrap rv" id="todo">
+  <div class="sec-head"><h2>待辦</h2><span class="rule"></span><span class="eyebrow">Checklist</span></div>
+
+  <div class="tabbar-wrap">
+    <div class="tabbar" role="tablist" aria-label="待辦分類">
+      <button type="button" class="on" data-tabgroup="todo" data-tab="prep">行前準備</button>
+      <button type="button" data-tabgroup="todo" data-tab="trip">這趟要確認</button>
+    </div>
+  </div>
+
+  <div class="tab-panel" data-tabgroup="todo" data-tab="prep">
+    <div class="tabbar-wrap">
+      <div class="tabbar" role="tablist" aria-label="依人檢視行前準備">
+        <button type="button" class="on" data-tabgroup="prep" data-tab="jun">鈞</button>
+        <button type="button" data-tabgroup="prep" data-tab="ping">平</button>
+      </div>
+    </div>
+
+    <div class="tab-panel" data-tabgroup="prep" data-tab="jun">
+      <p class="chk-progress">已完成 <b>0</b> / 9</p>
+      <ul class="todo" data-owner="jun">
+        <li><label class="chk"><input type="checkbox" data-todo="flight"><span class="box"></span><span class="txt">訂機票</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="stay"><span class="box"></span><span class="txt">訂住宿</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="sim"><span class="box"></span><span class="txt">網卡</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="visa"><span class="box"></span><span class="txt">簽證</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="meds"><span class="box"></span><span class="txt">保健食品＋藥品</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="power"><span class="box"></span><span class="txt">充電器＋行動電源＋轉接頭</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="insurance"><span class="box"></span><span class="txt">保險（不便險＋平安險）</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="toiletries"><span class="box"></span><span class="txt">盥洗衣物（洗衣袋）＋保養品＋化妝品</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="eyewear"><span class="box"></span><span class="txt">隱形眼鏡＋墨鏡＋噴香香</span></label></li>
+      </ul>
+    </div>
+
+    <div class="tab-panel" data-tabgroup="prep" data-tab="ping" hidden>
+      <p class="chk-progress">已完成 <b>0</b> / 9</p>
+      <ul class="todo" data-owner="ping">
+        <li><label class="chk"><input type="checkbox" data-todo="flight"><span class="box"></span><span class="txt">訂機票</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="stay"><span class="box"></span><span class="txt">訂住宿</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="sim"><span class="box"></span><span class="txt">網卡</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="visa"><span class="box"></span><span class="txt">簽證</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="meds"><span class="box"></span><span class="txt">保健食品＋藥品</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="power"><span class="box"></span><span class="txt">充電器＋行動電源＋轉接頭</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="insurance"><span class="box"></span><span class="txt">保險（不便險＋平安險）</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="toiletries"><span class="box"></span><span class="txt">盥洗衣物（洗衣袋）＋保養品＋化妝品</span></label></li>
+        <li><label class="chk"><input type="checkbox" data-todo="eyewear"><span class="box"></span><span class="txt">隱形眼鏡＋墨鏡＋噴香香</span></label></li>
+      </ul>
+    </div>
+
+    <p class="chk-note">打勾只記在<b>你自己這支手機／這個瀏覽器</b>裡，不會同步給對方，兩人各自勾各自的。清除瀏覽器資料會一併清掉。</p>
+  </div>
+
+  <div class="tab-panel" data-tabgroup="todo" data-tab="trip" hidden>
+    <p class="chk-progress">已完成 <b>0</b> / 12</p>
+    <ul class="todo" data-owner="trip">
+      <li><label class="chk"><input type="checkbox" data-todo="cash-entry"><span class="box"></span><span class="txt">兩人各自備妥等值台幣 2 萬元的現鈔（泰銖或台幣皆可）<small>泰國入境備查用，海關抽查時要能當場出示，不是刷卡或存款證明能取代的</small></span></label></li>
+      <li><label class="chk"><input type="checkbox" data-todo="powerbank-rules"><span class="box"></span><span class="txt">行動電源依 2026/4/8 民航局新制收進手提行李<small>只能放隨身行李、絕對不能放托運；<b>最多帶 2 顆（不分容量合計）</b>，100Wh 以下免申報、100–160Wh 要先跟 VZ 申請、超過 160Wh 不能帶（沒標 Wh 只標 mAh 的話約略換算 Wh ≈ mAh × 3.7 ÷ 1000，20,000mAh 約 74Wh）。<b>飛行途中全程不能用行動電源幫任何裝置充電</b>，違規最重罰 10 萬元。這是桃園出發（8/19 去程）確定適用的規定，8/24 曼谷回程建議出發前另外上 VZ 官網核對一次</small></span></label></li>
+      <li><label class="chk"><input type="checkbox" data-todo="rabbit"><span class="box"></span><span class="txt">平辦一張 Rabbit Card<small>只能搭 BTS，MRT 直接刷感應信用卡就好，不用另外辦卡</small></span></label></li>
+      <li><label class="chk"><input type="checkbox" data-todo="f-green"><span class="box"></span><span class="txt">問 F：8/22 要不要一起去綠肺<small>決定整個早上怎麼排（瑜伽 vs 健身房）、中餐在哪吃</small></span></label></li>
+      <li><label class="chk"><input type="checkbox" data-todo="f-gym"><span class="box"></span><span class="txt">問 F：8/22、8/23 早上 07:00–07:40 健身設施是否開放<small>兩天的晨運都卡在這一題</small></span></label></li>
+      <li><label class="chk"><input type="checkbox" data-todo="dance-confirm"><span class="box"></span><span class="txt">8/16 官方公告後，重新確認 8/20、8/22、8/23 三晚的跳舞行程與時間<small>目前排的 Hot Latin Thursday／Sensual Saturday／Bachata Fever 都還是預計版本</small></span></label></li>
+      <li><label class="chk"><input type="checkbox" data-todo="f-lunch"><span class="box"></span><span class="txt">問 F：8/21 中午要不要一起吃飯，順便要泰文完整地址</span></label></li>
+      <li><label class="chk"><input type="checkbox" data-todo="taxi-0821"><span class="box"></span><span class="txt">8/21 離場前先叫好車<small>22:30 離場、22:41–22:45 要到，中間沒有緩衝</small></span></label></li>
+      <li><label class="chk"><input type="checkbox" data-todo="airport-terminal"><span class="box"></span><span class="txt">確認 VZ 航班的機場與航廈<small>蘇汪納蓬 สุวรรณภูมิ 或 廊曼 ดอนเมือง，8/24 清晨沒有查錯的餘裕</small></span></label></li>
+      <li><label class="chk"><input type="checkbox" data-todo="bus-out"><span class="box"></span><span class="txt">查 8/19 朝馬 07:30 統聯往機場的班次與購票<small>去程唯一的固定時間點，錯過會影響整天</small></span></label></li>
+      <li><label class="chk"><input type="checkbox" data-todo="bus-back"><span class="box"></span><span class="txt">問統聯：8/24 有沒有機場直達豐原的班次<small>若比到朝馬慢 50 分鐘以上，就改搭朝馬（統聯或國光）</small></span></label></li>
+      <li><label class="chk"><input type="checkbox" data-todo="atlas"><span class="box"></span><span class="txt">問平：8/20 要不要一起去 Atlas Workspace 辦公<small>要的話平要出發前自己先上網登記，才能免費用第一次（一天 380 THB）；鈞已登記</small></span></label></li>
+    </ul>
+  </div>
+</section>
+
+<footer class="wrap">
+  <span>Bangkok Handbook</span>
+  <span class="num">19 — 24 · 08 · 2026</span>
+  <span>鈞 × 平</span>
+</footer>
+
+</div><!-- /shell -->
+
+<script>
+(function(){
+  var root = document.documentElement;
+
+  var swatches = document.querySelectorAll('.sw');
+  swatches.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      root.setAttribute('data-theme', btn.getAttribute('data-theme-set'));
+      swatches.forEach(function(b){ b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+    });
+  });
+
+  var modeBtn = document.getElementById('modeBtn');
+  modeBtn.addEventListener('click', function(){
+    var dark = root.getAttribute('data-mode') === 'dark';
+    root.setAttribute('data-mode', dark ? 'light' : 'dark');
+    modeBtn.textContent = dark ? '暗底' : '亮底';
+    modeBtn.setAttribute('aria-pressed', dark ? 'false' : 'true');
+  });
+
+  var shell = document.getElementById('shell');
+  var els = document.querySelectorAll('.rv');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function revealAll(){ els.forEach(function(e){ e.classList.add('in'); }); }
+
+  if(!('IntersectionObserver' in window) || reduce){
+    revealAll();
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    },{root:shell, rootMargin:'0px 0px -6% 0px', threshold:.05});
+    els.forEach(function(e){ io.observe(e); });
+    /* 保險：不論觀察器是否正常運作，1.4 秒後一律顯示，內容永遠不會憑空消失 */
+    setTimeout(revealAll, 1400);
+  }
+
+  /* ── 待辦打勾：狀態存在本機瀏覽器 ──────────────────────────────
+     TRIP_ID 必須每趟不同：所有 GitHub Pages 專案共用 karen-lian.github.io 這一個網域，
+     key 沒帶行程識別的話，曼谷勾的會直接出現在下一趟的手冊上。
+     每個項目用固定英文 id（data-todo），這樣之後改中文標題不會弄丟已勾狀態。 */
+  var TRIP_ID = 'bkk-2026-08';
+  var STORE_KEY = 'handbook:' + TRIP_ID + ':checks';
+
+  /* localStorage 在沙盒 iframe（例如 artifact 預覽）存取會丟 SecurityError，
+     一定要包起來——否則整段腳本中斷，連導覽都會壞掉。存不了就只是不記憶，畫面照常運作。 */
+  function loadChecks(){
+    try { return JSON.parse(localStorage.getItem(STORE_KEY) || '{}') || {}; }
+    catch(e){ return {}; }
+  }
+  function saveChecks(state){
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); }
+    catch(e){ /* 無痕模式或沙盒：略過持久化 */ }
+  }
+
+  var checkState = loadChecks();
+
+  function updateProgress(){
+    document.querySelectorAll('ul.todo[data-owner]').forEach(function(ul){
+      var panel = ul.parentNode;
+      var out = panel.querySelector('.chk-progress b');
+      if(out) out.textContent = ul.querySelectorAll('input[type=checkbox]:checked').length;
+    });
+  }
+
+  Array.prototype.slice.call(document.querySelectorAll('.todo input[type=checkbox]')).forEach(function(cb){
+    var list = cb.closest('ul.todo');
+    var li = cb.closest('li');
+    if(!list || !li) return;
+    var key = list.getAttribute('data-owner') + ':' + cb.getAttribute('data-todo');
+    cb.checked = checkState[key] === true;
+    li.classList.toggle('done', cb.checked);
+    cb.addEventListener('change', function(){
+      if(cb.checked){ checkState[key] = true; } else { delete checkState[key]; }
+      saveChecks(checkState);
+      li.classList.toggle('done', cb.checked);
+      updateProgress();
+    });
+  });
+  updateProgress();
+
+  /* 底部導覽列是唯一的區塊導覽（頂部只剩品牌與主題切換） */
+  var bottomLinks = Array.prototype.slice.call(document.querySelectorAll('.navbottom button'));
+  var targets = bottomLinks.map(function(b){ return document.getElementById(b.getAttribute('data-go')); });
+
+  function goTo(t, extraOffset){
+    if(!t) return;
+    revealAll();
+    var navH = document.querySelector('.nav').offsetHeight;
+    var y = t.getBoundingClientRect().top - shell.getBoundingClientRect().top + shell.scrollTop - navH - (extraOffset || 0) - 10;
+    var top = Math.max(y, 0);
+    if(shell.scrollTo){ shell.scrollTo({ top: top, behavior: reduce ? 'auto' : 'smooth' }); }
+    else { shell.scrollTop = top; }
+  }
+  bottomLinks.forEach(function(btn, i){ btn.addEventListener('click', function(){ goTo(targets[i]); }); });
+
+  /* 分頁式切換（費用分擔的角色分頁、泰語隨身頁的主題分頁）：純粹顯示/隱藏，跟捲動導覽無關。
+     用 data-tabgroup 分組，同一頁可以有好幾組互不干擾的分頁。 */
+  var tabBtns = Array.prototype.slice.call(document.querySelectorAll('.tabbar button'));
+  tabBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var group = btn.getAttribute('data-tabgroup');
+      var tab = btn.getAttribute('data-tab');
+      document.querySelectorAll('.tabbar button[data-tabgroup="' + group + '"]').forEach(function(b){
+        b.classList.toggle('on', b === btn);
+      });
+      document.querySelectorAll('.tab-panel[data-tabgroup="' + group + '"]').forEach(function(p){
+        if(p.getAttribute('data-tab') === tab){ p.removeAttribute('hidden'); }
+        else { p.setAttribute('hidden', ''); }
+      });
+    });
+  });
+
+  /* 行程區的按日期跳轉列：獨立一組目標，額外扣掉自己疊在主導覽下方的高度 */
+  var dayBtns = Array.prototype.slice.call(document.querySelectorAll('.daybar button'));
+  var dayTargets = dayBtns.map(function(b){ return document.getElementById(b.getAttribute('data-day')); });
+  var daybarEl = document.querySelector('.daybar-wrap');
+  dayBtns.forEach(function(btn, i){
+    btn.addEventListener('click', function(){
+      goTo(dayTargets[i], daybarEl ? daybarEl.offsetHeight : 0);
+    });
+  });
+  function spyDaybar(){
+    if(!dayBtns.length) return;
+    var navH = document.querySelector('.nav').offsetHeight;
+    var barH = daybarEl ? daybarEl.offsetHeight : 0;
+    var line = shell.getBoundingClientRect().top + navH + barH + 20;
+    var active = -1;
+    dayTargets.forEach(function(t, i){
+      if(t && t.getBoundingClientRect().top <= line) active = i;
+    });
+    dayBtns.forEach(function(b, j){ b.classList.toggle('on', j === active); });
+  }
+
+  /* 以「導覽列下方那條線」為判準，取最後一個已越過該線的區塊 */
+  function spy(){
+    var navH = document.querySelector('.nav').offsetHeight;
+    var line = shell.getBoundingClientRect().top + navH + 24;
+    var active = 0;
+    targets.forEach(function(t, i){
+      if(t && t.getBoundingClientRect().top <= line) active = i;
+    });
+    if(shell.scrollTop + shell.clientHeight >= shell.scrollHeight - 4){
+      active = targets.length - 1;
+    }
+    bottomLinks.forEach(function(b, j){ b.classList.toggle('on', j === active); });
+    spyDaybar();
+  }
+  var ticking = false;
+  shell.addEventListener('scroll', function(){
+    if(ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function(){ spy(); ticking = false; });
+  }, {passive:true});
+  window.addEventListener('resize', spy);
+  spy();
+})();
+</script>
+
+</body>
+</html>
