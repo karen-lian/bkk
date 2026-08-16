@@ -14,9 +14,18 @@
 |---|---|---|
 | `index.html` | 主手冊：行程、住宿、費用、泰語、待辦 | 鈞（Jun）與平（Ping） |
 | `saturday-with-f.html` | 8/22 行程提議頁，全英文 | F（朋友，男性，人在曼谷） |
+| `en.html` | 純行程表，全英文，只有六天行程 | 要分享行程給誰就給這頁 |
 | `曼谷行程表_0819-0824.md` | 純文字版行程，內容與 index.html 同步 | 自用速查 |
 
-**重要：`index.html` 與 markdown 兩份文件必須同步維護。** 任何行程異動兩邊都要改。
+**重要：`index.html`、`en.html` 與 markdown 三份文件必須同步維護。** 任何行程異動三邊都要改。
+
+`en.html` 刻意**不含**機票資訊、住宿、費用分攤、泰語、待辦五個區塊——那些是自用的。
+但行程裡的價格（船票、腳踏車、按摩、門票）與抵達／起飛時間要保留，不然這份行程表不好用。
+
+三頁的 `<head>` 都有 `<meta name="robots" content="noindex, nofollow">`，
+**不要另外加 robots.txt Disallow**：爬蟲被擋掉就讀不到 noindex，反而可能讓網址
+以無說明的形式留在搜尋結果。而且專案站的 robots.txt 必須在網域根目錄，放在這個
+repo 只會是 `/bkk/robots.txt`，爬蟲不會讀。
 
 ---
 
@@ -180,6 +189,24 @@ GitHub Pages 之後那個前提就不成立了，所以規則細分成兩半：
 - 切換分頁用 `[hidden]` 屬性而不是 CSS class 控制 `display`，這樣 `.tab-panel{animation:tabPanelIn ...}` 每次從隱藏變顯示都會重新播放（瀏覽器對 `display:none → 顯示` 的元素會重跑 CSS animation），不用額外寫 JS 去 toggle 動畫 class。
 - `.tabbar` 用 `flex-wrap:wrap` + 個別按鈕各自完整邊框（不是共用邊框的 segmented control），這樣 3 顆（費用）跟 6 顆（泰語，手機上會換行成兩排）都適用，不會有換行後邊框對不齊的問題。
 - 列印（`@media print`）要強制把所有分頁都印出來（`.tab-panel{display:block!important}`），不能讓紙本只印到當下選到的那一頁。
+
+### 4.9 `.fork` 的選項裡不能塞 `<span class="note">`
+
+`.fork div` 是 `display:flex`，而且 `.fork div span{flex:none}` 會**選到裡面所有的
+span**——包含你加進去的 `.note`。結果是 `.note` 變成不能收縮的 flex 項目，把選項本文
+擠成一行一個字。
+
+```html
+<!-- 壞掉 -->
+<div><span>01</span>選項文字<span class="note">補充</span></div>
+
+<!-- 正確：補充說明放在 .fork 外面 -->
+<div><span>01</span>選項文字</div>
+</div><!-- /.fork -->
+<span class="note">補充說明</span>
+```
+
+這個坑只有截圖看得出來——DOM 結構合法、JS 沒錯、innerText 讀起來也正常。
 
 ### 4.8 `[hidden]` 會被作者端的 `display` 宣告蓋掉
 

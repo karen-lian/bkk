@@ -129,3 +129,14 @@ flex item 時，一旦 `.brand` 被 `display:none`，`space-between` 會把唯�
 
 **驗證時**：用 `getComputedStyle(el).display !== 'none'` 判斷，**不要**用 `el.hidden`——
 讀 DOM 屬性會讓這個 bug 通過測試，最後只有截圖看得出來。
+
+## 14. `.fork` 的選項裡不能塞 `.note`
+
+**症狀**：分岔選項的文字變成一行一個字。
+
+**根因**：`.fork div{display:flex}` 且 `.fork div span{flex:none}` 會選到選項裡**所有**
+span。多加一個 `.note` 就多一個不可收縮的 flex 項目，把本文擠掉。
+
+**解法**：補充說明放在 `.fork` **外面**，當作父層 `.body` 的 `.note`。
+
+DOM 合法、JS 無誤、innerText 讀起來也正常——**只有截圖看得出來**。
