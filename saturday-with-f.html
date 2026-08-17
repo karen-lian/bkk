@@ -213,6 +213,10 @@ header{padding-top:clamp(26px,4vw,46px);}
 .write:focus{outline:2px solid var(--ink);outline-offset:2px;}
 .write-hint{font-size:12.5px;color:var(--ink-60);margin:9px 0 0;}
 
+/* ── evening info card（沒有選擇，只是說明）── */
+.info{border:var(--hair) solid var(--ink);border-top-width:3px;
+  padding:clamp(20px,3vw,32px);margin-top:clamp(18px,2.6vw,26px);}
+
 /* ── send block ── */
 .send{margin-top:clamp(28px,4vw,42px);}
 .send-lede{font-size:14.5px;max-width:48ch;margin:14px 0 0;}
@@ -353,10 +357,9 @@ html.js .rv.in{opacity:1;transform:none;}
   <ol class="steps">
     <li class="step on" data-step="1"><span class="dot"></span>The afternoon</li>
     <li class="step" data-step="2"><span class="dot"></span>Dinner</li>
-    <li class="step" data-step="3"><span class="dot"></span>Dancing</li>
-    <li class="step" data-step="4"><span class="dot"></span>Your Saturday</li>
+    <li class="step" data-step="3"><span class="dot"></span>Your Saturday</li>
   </ol>
-  <p class="tally"><b id="tally">0</b> of 3 decided · tap a card again to un-pick it</p>
+  <p class="tally"><b id="tally">0</b> of 2 decided · tap a card again to un-pick it</p>
 </div>
 
 <!-- ══════ STAGE 1 ══════ -->
@@ -543,87 +546,51 @@ html.js .rv.in{opacity:1;transform:none;}
   </div>
 </section>
 
-<!-- ══════ STAGE 3 — dancing ══════ -->
-<section class="wrap stage rv" data-stage="3">
+<!-- ══════ Evening — information only, nothing to decide ══════ -->
+<section class="wrap stage rv">
   <div class="stage-head">
-    <span class="stage-no num">03</span>
-    <h2 class="stage-title">Dancing</h2>
-    <span class="lock">Locked</span>
-    <span class="stamp">Picked</span>
+    <h2 class="stage-title">Later that evening</h2>
   </div>
-  <p class="ask">Last one, and it's the most optional of the lot — we're going out dancing
-    that night. Fancy it?</p>
+  <p class="ask">Whatever we end up doing during the day, we're going out dancing afterwards.
+    Nothing to decide here — just so you know where we'll be.</p>
 
-  <div class="stage-body">
-    <div class="choice">
-      <button class="choice-head" type="button" aria-pressed="false" data-group="dancing" data-value="yes">
-        <span class="opt-tag">I'm in</span>
-        <span class="ch-title">Come dancing with us</span>
-        <span class="sub">A Latin social — bachata and kizomba. There's a beginner workshop first,
-          and Ping is a complete beginner too, so you'd be in good company.</span>
-        <span class="cta">Pick this</span>
-      </button>
-      <div class="detail" hidden>
-        <dl>
-          <div class="row">
-            <dt>Where</dt>
-            <dd>
-              <a href="https://www.google.com/maps/search/?api=1&query=Heaven%2017%20Bar%20and%20Lounge%20Sukhumvit%2017" target="_blank" rel="noopener">HEAVEN 17 Bar &amp; Lounge</a>, Sukhumvit 17.
-              <small>About a 2-minute walk from Asok BTS — easy to get to, and easy to leave.</small>
-            </dd>
-          </div>
-          <div class="row">
-            <dt>When</dt>
-            <dd>
-              <span class="pill">Workshop <b>20:00</b></span>
-              <span class="pill">Social <b>21:00</b></span>
-              <span class="pill">Entry <b>300 THB</b></span>
-              <small>We'd head back to the apartment to shower and change after dinner first,
-                so there's a gap in between — no need to decide until then.</small>
-            </dd>
-          </div>
-          <div class="row">
-            <dt>No pressure</dt>
-            <dd>
-              Come for as much or as little as you like.
-              <small>We're planning to leave around 22:00, 22:15 at the latest.</small>
-            </dd>
-          </div>
-        </dl>
-        <div class="note-box">
-          One caveat — the organisers don't post the official line-up until <b>16 Aug</b>,
-          so this one's still pencilled in. We'll confirm once it's up.
-        </div>
+  <div class="info">
+    <dl>
+      <div class="row">
+        <dt>What</dt>
+        <dd>
+          Social Night at The Hop — swing.
+          <small>There's an absolute-beginner class before the social starts. No partner, no experience needed.</small>
+        </dd>
       </div>
-    </div>
+      <div class="row">
+        <dt>When</dt>
+        <dd>
+          <span class="pill">Class <b>20:00</b></span>
+          <span class="pill">Social <b>20:30</b></span>
+          <span class="pill">Entry <b>200 THB</b></span>
+        </dd>
+      </div>
+      <div class="row">
+        <dt>Where</dt>
+        <dd>
+          <a href="https://maps.app.goo.gl/fXqPYZZ3xcr58zjSA?g_st=ic" target="_blank" rel="noopener">The Hop</a>,
+          Silom Road between Soi 18 and Soi 20, opposite the Hindu temple.
+          <small>About 25 minutes by car from where we are.</small>
+        </dd>
+      </div>
+    </dl>
 
-    <div class="choice">
-      <button class="choice-head" type="button" aria-pressed="false" data-group="dancing" data-value="no">
-        <span class="opt-tag">Not this time</span>
-        <span class="ch-title">I'll sit this one out</span>
-        <span class="sub">Completely fine — it's a late one and it's very much our thing, not a
-          you-have-to-come thing.</span>
-        <span class="cta">Pick this</span>
-      </button>
-      <div class="detail" hidden>
-        <dl>
-          <div class="row">
-            <dt>That's that</dt>
-            <dd>
-              We'll say goodnight after dinner.
-              <small>And if you change your mind on the day, just tell us — you're welcome to join late.</small>
-            </dd>
-          </div>
-        </dl>
-      </div>
+    <div class="note-box">
+      You're more than welcome to come along if you fancy it — equally, no pressure at all.
     </div>
   </div>
 </section>
 
-<!-- ══════ STAGE 4 — the assembled plan ══════ -->
-<section class="wrap stage final" data-stage="4" hidden>
+<!-- ══════ STAGE 3 — the assembled plan ══════ -->
+<section class="wrap stage final" data-stage="3" hidden>
   <div class="stage-head">
-    <span class="stage-no num">04</span>
+    <span class="stage-no num">03</span>
     <h2 class="stage-title">Your Saturday</h2>
   </div>
   <ol class="plan" id="plan">
@@ -637,7 +604,6 @@ html.js .rv.in{opacity:1;transform:none;}
     <li data-when="other"><b>Daytime</b><span>Your call — you've written us a note below</span></li>
     <li data-when="dinner-yes"><b>17:00–19:00</b><span>Dinner together</span></li>
     <li data-when="dinner-maybe"><b>Evening</b><span>Dinner if we're all still up for it</span></li>
-    <li data-when="dancing-yes"><b>20:00</b><span>Dancing at HEAVEN 17 — workshop, then the social</span></li>
   </ol>
 
   <div class="send">
@@ -689,24 +655,23 @@ html.js .rv.in{opacity:1;transform:none;}
      不要寫成「點下去就往前推進」的單向邏輯，否則取消時關卡會鎖不回去。 */
   var stages = {
     afternoon: document.querySelector('[data-stage="1"]'),
-    dinner:    document.querySelector('[data-stage="2"]'),
-    dancing:   document.querySelector('[data-stage="3"]')
+    dinner:    document.querySelector('[data-stage="2"]')
   };
-  var order   = ['afternoon','dinner','dancing'];
-  var summary = document.querySelector('[data-stage="4"]');
+  var order   = ['afternoon','dinner'];
+  var summary = document.querySelector('[data-stage="3"]');
   var steps   = document.querySelectorAll('.steps .step');
   var tally   = document.getElementById('tally');
   var planLis = document.querySelectorAll('#plan li');
   var noteBox = document.getElementById('note');
   var sendBox = document.getElementById('sendBox');
   var copyOk  = document.getElementById('copyOk');
-  var state   = { afternoon:null, dinner:null, dancing:null, note:'' };
+  var state   = { afternoon:null, dinner:null, note:'' };
 
   var LABEL = {
     adventure:'Out to Bang Kachao — ferry over, bikes, lunch on the island',
     easy:'Just lunch, keep the day easy',
     other:'Neither of those, actually',
-    yes:'Yes please', maybe:'Let\'s see how we feel', no:'Sitting this one out'
+    yes:'Yes please', maybe:'Let\'s see how we feel'
   };
 
   function sync(){
@@ -740,16 +705,15 @@ html.js .rv.in{opacity:1;transform:none;}
       steps[i].classList.toggle('done', !!state[g]);
       steps[i].classList.toggle('on', !state[g] && (i === 0 || !!state[order[i-1]]));
     });
-    steps[3].classList.toggle('on', done === 3);
+    steps[2].classList.toggle('on', done === 2);
 
     planLis.forEach(function(li){
       var when = li.getAttribute('data-when');
       li.hidden = !(when === state.afternoon ||
-                    (state.dinner  && when === 'dinner-'  + state.dinner) ||
-                    (state.dancing && when === 'dancing-' + state.dancing));
+                    (state.dinner && when === 'dinner-' + state.dinner));
     });
 
-    summary.hidden = done < 3;
+    summary.hidden = done < 2;
     if(!summary.hidden){ sendBox.textContent = buildMessage(); }
   }
 
@@ -760,7 +724,6 @@ html.js .rv.in{opacity:1;transform:none;}
       lines.push('  What I\'d rather do: ' + state.note.trim());
     }
     lines.push('Dinner: '  + (LABEL[state.dinner]  || '—'));
-    lines.push('Dancing: ' + (LABEL[state.dancing] || '—'));
     return lines.join('\n');
   }
 
@@ -816,7 +779,7 @@ html.js .rv.in{opacity:1;transform:none;}
   });
 
   document.getElementById('resetBtn').addEventListener('click', function(){
-    state.afternoon = null; state.dinner = null; state.dancing = null; state.note = '';
+    state.afternoon = null; state.dinner = null; state.note = '';
     noteBox.value = '';
     sync();
     stages.afternoon.scrollIntoView({behavior:'smooth', block:'start'});
