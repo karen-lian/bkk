@@ -190,11 +190,12 @@ GitHub Pages 之後那個前提就不成立了，所以規則細分成兩半：
 - `.tabbar` 用 `flex-wrap:wrap` + 個別按鈕各自完整邊框（不是共用邊框的 segmented control），這樣 3 顆（費用）跟 6 顆（泰語，手機上會換行成兩排）都適用，不會有換行後邊框對不齊的問題。
 - 列印（`@media print`）要強制把所有分頁都印出來（`.tab-panel{display:block!important}`），不能讓紙本只印到當下選到的那一頁。
 
-### 4.9 `.fork` 的選項裡不能塞 `<span class="note">`
+### 4.9 `.fork` 的選項裡不能塞任何行內元素
 
-`.fork div` 是 `display:flex`，而且 `.fork div span{flex:none}` 會**選到裡面所有的
-span**——包含你加進去的 `.note`。結果是 `.note` 變成不能收縮的 flex 項目，把選項本文
-擠成一行一個字。
+`.fork div` 是 `display:flex`。flex 容器會把**每一段連續文字各自變成一個匿名 flex 項目**，
+所以選項文字裡只要夾一個 `<b>`、`<em>`、`<span class="note">`，那個標籤就會變成**獨立的
+flex 項目**，跟前後文字斷開、各自換行。加上 `.fork div span{flex:none}` 會選到裡面所有的
+span，`.note` 還會變成不能收縮的項目，把本文擠成一行一個字。
 
 ```html
 <!-- 壞掉 -->

@@ -130,13 +130,16 @@ flex item 時，一旦 `.brand` 被 `display:none`，`space-between` 會把唯�
 **驗證時**：用 `getComputedStyle(el).display !== 'none'` 判斷，**不要**用 `el.hidden`——
 讀 DOM 屬性會讓這個 bug 通過測試，最後只有截圖看得出來。
 
-## 14. `.fork` 的選項裡不能塞 `.note`
+## 14. `.fork` 的選項裡不能塞任何行內元素
 
 **症狀**：分岔選項的文字變成一行一個字。
 
-**根因**：`.fork div{display:flex}` 且 `.fork div span{flex:none}` 會選到選項裡**所有**
-span。多加一個 `.note` 就多一個不可收縮的 flex 項目，把本文擠掉。
+**根因**：`.fork div{display:flex}`。flex 容器會把每一段連續文字各自變成一個匿名 flex
+項目，所以選項文字裡只要夾一個 `<b>`／`<em>`／`.note`，那個標籤就變成**獨立的 flex 項目**，
+跟前後文字斷開各自換行。`.fork div span{flex:none}` 又會選到裡面所有 span，`.note` 還會
+變成不可收縮的項目，直接把本文擠成一行一個字。
 
-**解法**：補充說明放在 `.fork` **外面**，當作父層 `.body` 的 `.note`。
+**解法**：選項文字保持**純文字**，補充說明放在 `.fork` **外面**當作父層 `.body` 的 `.note`。
+要強調就靠文案本身，不要靠 `<b>`。
 
 DOM 合法、JS 無誤、innerText 讀起來也正常——**只有截圖看得出來**。
