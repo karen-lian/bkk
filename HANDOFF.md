@@ -13,16 +13,15 @@
 | 檔案 | 用途 | 讀者 |
 |---|---|---|
 | `index.html` | 主手冊：行程、住宿、費用、泰語、待辦 | 鈞（Jun）與平（Ping） |
-| `saturday-with-f.html` | 8/22 行程提議頁，全英文 | F（朋友，男性，人在曼谷） |
-| `en.html` | 純行程表，全英文，只有六天行程 | 要分享行程給誰就給這頁 |
 | `曼谷行程表_0819-0824.md` | 純文字版行程，內容與 index.html 同步 | 自用速查 |
 
-**重要：`index.html`、`en.html` 與 markdown 三份文件必須同步維護。** 任何行程異動三邊都要改。
+**重要：`index.html` 與 markdown 兩份文件必須同步維護。** 任何行程異動兩邊都要改。
 
-`en.html` 刻意**不含**機票資訊、住宿、費用分攤、泰語、待辦五個區塊——那些是自用的。
-但行程裡的價格（船票、腳踏車、按摩、門票）與抵達／起飛時間要保留，不然這份行程表不好用。
+> **2026-08-16 移除**：原本還有 `saturday-with-f.html`（給 F 的 8/22 提議頁，闖關式選擇）
+> 與 `en.html`（純英文六天行程表）。兩頁都不再使用，已刪除；需要時從 git 歷史取回。
+> 灰銀配色、闖關流程、資訊卡等做法留在下方各節，之後要重做可以參考。
 
-三頁的 `<head>` 都有 `<meta name="robots" content="noindex, nofollow">`，
+`index.html` 的 `<head>` 有 `<meta name="robots" content="noindex, nofollow">`，
 **不要另外加 robots.txt Disallow**：爬蟲被擋掉就讀不到 noindex，反而可能讓網址
 以無說明的形式留在搜尋結果。而且專案站的 robots.txt 必須在網域根目錄，放在這個
 repo 只會是 `/bkk/robots.txt`，爬蟲不會讀。
@@ -65,9 +64,8 @@ river dark : --ink:#7DB2EA  --paper:#070C16
 只有這三種，不要再加。
 
 ### 3.3 插畫
-兩頁的 hero 都是**手寫 SVG 線稿**，非圖片：
+hero 是**手寫 SVG 線稿**，非圖片：
 - `index.html`：曼谷街景（頭頂電纜、鄭王廟塔、店屋、Mahanakhon 像素塔、嘟嘟車、路邊攤）
-- `saturday-with-f.html`：綠肺意象（椰子樹、高架單車道、長尾船、河水）
 
 線條用 `.st`（1px）／`.thin`（0.6px）／`.bold`（1.6px`），窗格與招牌用 SVG `<pattern>` 產生密度。`stroke` 一律用 `var(--ink)`，`fill` 只用 `var(--paper)` 做挖空。
 
@@ -93,15 +91,15 @@ river dark : --ink:#7DB2EA  --paper:#070C16
 
 ### 3.6 動效與版面變異（2026-08-11 起）
 
-兩份文件都在原本克制的單色系統上，額外疊了一層「編舞感動效」與「選擇性版面變異」，**不是取代第 3.1 節的單色/單紙約束，只是在同一套系統裡拉高表現力**：
+手冊在原本克制的單色系統上，額外疊了一層「編舞感動效」與「選擇性版面變異」，**不是取代第 3.1 節的單色/單紙約束，只是在同一套系統裡拉高表現力**：
 
-- **進場動效**：`.rv` 區塊從單純淡入改成 `translateY + scale` 的 settle 動畫（`cubic-bezier(.16,1,.3,1)`），內部的卡片/列表項目（`.place`、`.money li`、`.ph`、`.todo li`、`.stops li`、`saturday-with-f.html` 的 `.row`）用 `nth-child` 疊加 `transition-delay` 做出逐項掉落的節奏，第 5 項起延遲封頂，長清單不會拖太久。
+- **進場動效**：`.rv` 區塊從單純淡入改成 `translateY + scale` 的 settle 動畫（`cubic-bezier(.16,1,.3,1)`），內部的卡片/列表項目（`.place`、`.money li`、`.ph`、`.todo li`、`.stops li`、已刪除的 F 提議頁的 `.row`）用 `nth-child` 疊加 `transition-delay` 做出逐項掉落的節奏，第 5 項起延遲封頂，長清單不會拖太久。
 - **`.day`（行程日期卡）維持獨立的 `.rv` + IntersectionObserver**，不要把它併進上面的子項 stagger 規則——它本來就是自己的觀察目標，如果被 `.rv .day` 這種子代選擇器蓋到，會在外層 section 一進畫面就整批提前顯示，等於作廢了逐日揭露的效果（這裡踩過一次坑，寫下來避免重踩）。
 - **導覽列**：`.links` 內加了一條 `.nav-indicator`，`spy()` 算出目前 active 按鈕的 `offsetLeft/offsetWidth` 後用 CSS transition 滑過去，取代原本純靠 `.on` 顏色切換。
 - **互動微動效**：`.mapbtn`、`.place .map`、導覽按鈕、主題色點、暗底切換鈕，hover/active 都加了小幅 `transform`（不是只變顏色）。
 - **版面變異只用在裝飾性、非資訊性的元素**：`.tag`／`.opt-tag` 編號徽章加了旋轉與出血（`transform:rotate()` + 負值定位），`.day-num` 奇偶交替微旋轉，`.duo`／`.opt:nth-of-type(2)` 卡片做垂直或水平位移。**行程時間軸的直線結構（3.4 節）跟 `.places` 卡片共用邊框的網格完全沒有動它**——那兩處的視覺規律本身就是資訊結構，破壞了會犧牲可讀性，不是「版面變異」該去動的地方。
 - **一律遵守 `prefers-reduced-motion`**：新增的每一段動效（進場 stagger、行程直線的畫線動畫、nav-indicator 滑動、hover transform）都要在 reduced-motion 媒體查詢裡關掉或歸零，不能只關掉舊有的那幾個。
-- **`saturday-with-f.html` 新增了 `.rv` 揭露機制**（它原本沒有，只有 hero SVG 的進場動畫）：務必比照 4.1／4.3 節的原則，加上 `html.js` class 開關與「不論如何 1.4 秒後強制顯示」的保險 timer——這頁沒有 `.shell`，用的是預設 viewport 當 IntersectionObserver 的 root，邏輯簡單一些，但「內容不能憑空消失」這條鐵律一樣適用。
+- **（已刪除的 F 提議頁）曾新增 `.rv` 揭露機制**（它原本沒有，只有 hero SVG 的進場動畫）：務必比照 4.1／4.3 節的原則，加上 `html.js` class 開關與「不論如何 1.4 秒後強制顯示」的保險 timer——這頁沒有 `.shell`，用的是預設 viewport 當 IntersectionObserver 的 root，邏輯簡單一些，但「內容不能憑空消失」這條鐵律一樣適用。
 
 ---
 
@@ -161,7 +159,7 @@ GitHub Pages 之後那個前提就不成立了，所以規則細分成兩半：
 - `.daybar` 疊在 `#route` section 裡面，而 `#route` 本身是 `.rv`（進場時會有短暫的 `transform`）。**`transform` 存在的當下會讓子層 `position:sticky` 的定位基準跟著跑**，但 `.rv.in` 完成後 `transform:none`，問題只會在最初進場那 0.8 秒短暫出現，之後恢復正常——如果之後又在別的 `.rv` 區塊裡放 sticky 元件，先確認這個前提還成立。
 - `goTo()` 統一負責「捲到某個區塊」，額外接一個 `extraOffset` 參數：一般導覽用 0，`.daybar` 跳轉要多扣一個 `.daybar-wrap` 自己的高度，不然目標日期的標題會被兩層 sticky 列蓋住。
 - `.shell` 加了 `padding-bottom:calc(var(--navh) + env(safe-area-inset-bottom,0px))`，讓底部導覽列不會蓋住頁尾內容。
-- `saturday-with-f.html` 內容短、沒有多日行程可跳，**沒有加這幾層導覽**——只有一個主題切換列，這是刻意的，不是漏改。
+- （已刪除的 F 提議頁）內容短、沒有多日行程可跳，**沒有加這幾層導覽**——只有一個主題切換列，這是刻意的，不是漏改。
 
 ### 4.7 通用分頁元件：`.tabbar` / `.tab-panel`（僅 index.html）
 
